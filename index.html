@@ -4,80 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   
-  <!-- PWA Meta Tags -->
   <meta name="theme-color" content="#0a0e17">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Bluetooth Chat">
+  <meta name="apple-mobile-web-app-title" content="BT Chat">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="description" content="Offline Bluetooth Chat - No WiFi No Internet">
   
-  <!-- Manifest Link -->
-  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkJsdWV0b290aCBDaGF0IFBybyIsCiAgInNob3J0X25hbWUiOiAiQlQgQ2hhdCIsCiAgImRlc2NyaXB0aW9uIjogIk9mZmxpbmUgQmx1ZXRvb3RoIENoYXQiLAogICJzdGFydF91cmwiOiAiLi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBhMGUxNyIsCiAgInRoZW1lX2NvbG9yIjogIiMwYTBlMTciLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJpY29uLTE5Mi5wbmciLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiaWNvbi01MTIucG5nIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciCiAgICB9CiAgXQp9">
+  <link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEHElEQVR4nO3dQU4bQRRA0f5J2CN7VsES2SM7YAtnyBFyBK7ANbgBd+AIHI0j5Ag5AmfI5uxkkWAxHo+nq7uq6n+pJfXYPRrX6G3VVHc9PTw8PAAABOcNAADBCQAAwQkAABgnAAAYJwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjPlPAAAYJwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIwTAACMEwAAjBMAAIfwFfY6uBeRz/tQAAAAASUVORK5CYII=">
+  <link rel="icon" type="image/png" sizes="512x512" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEeUlEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8G1uDQABJ0UgGAAAAAElFTkSuQmCC">
   
   <title>Bluetooth Chat Pro</title>
 
   <style>
-    /* ============ RESET & BASE ============ */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(145deg, #020617 0%, #0f172a 50%, #020617 100%);
+      background: radial-gradient(ellipse at 30% 30%, #0f172a, #020617);
       min-height: 100vh;
-      min-height: -webkit-fill-available;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px;
-      overscroll-behavior: none;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-user-select: none;
-      user-select: none;
+      padding: 10px;
     }
 
-    /* ============ MAIN APP CARD ============ */
     .app-card {
       width: 100%;
       max-width: 430px;
-      height: 95vh;
-      height: 95dvh;
-      background: rgba(15, 23, 42, 0.7);
+      height: 94vh;
+      background: rgba(15,23,42,0.75);
       backdrop-filter: blur(48px);
       -webkit-backdrop-filter: blur(48px);
-      border-radius: 34px;
-      border: 1.5px solid rgba(255,255,255,0.07);
-      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 
-                  inset 0 1px 0 rgba(255,255,255,0.04);
+      border-radius: 36px;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      position: relative;
     }
 
-    /* Glow effect */
-    .app-card::before {
-      content: '';
-      position: absolute;
-      top: -80px; left: 20px;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(59,130,246,0.15), transparent 70%);
-      pointer-events: none;
-    }
-    .app-card::after {
-      content: '';
-      position: absolute;
-      bottom: -60px; right: -40px;
-      width: 250px; height: 250px;
-      background: radial-gradient(circle, rgba(139,92,246,0.12), transparent 70%);
-      pointer-events: none;
-    }
-
-    /* ============ HEADER ============ */
     .header {
-      position: relative;
-      z-index: 1;
-      padding: 18px 20px 14px;
+      padding: 20px;
       background: rgba(8,12,24,0.5);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -87,37 +54,17 @@
       align-items: center;
     }
 
-    .logo-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .bt-icon {
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
       width: 42px; height: 42px;
       background: linear-gradient(135deg, #2563eb, #06b6d4);
       border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
       font-size: 22px;
-      box-shadow: 0 10px 24px rgba(37,99,235,0.5);
     }
+    .logo h2 { font-size: 1rem; font-weight: 700; color: #e0f2fe; }
+    .logo span { font-size: 0.6rem; color: #64748b; display: block; }
 
-    .title-text h2 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      background: linear-gradient(to right, #e0f2fe, #bae6fd);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.2;
-    }
-    .title-text span {
-      font-size: 0.6rem;
-      color: #64748b;
-      letter-spacing: 1.2px;
-    }
-
-    /* Status Badge */
     #statusBadge {
       padding: 7px 15px;
       border-radius: 30px;
@@ -129,382 +76,169 @@
       background: rgba(239,68,68,0.15);
       border: 1px solid rgba(239,68,68,0.4);
       color: #f87171;
-      transition: 0.3s;
     }
-    #statusBadge.connected {
-      background: rgba(16,185,129,0.15);
-      border-color: rgba(16,185,129,0.5);
-      color: #6ee7b7;
-    }
-    #statusDot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #ef4444;
-      animation: blink 1.8s infinite;
-    }
-    #statusBadge.connected #statusDot {
-      background: #10b981;
-      box-shadow: 0 0 14px #10b981;
-    }
-    @keyframes blink {
-      0%,100% { opacity: 1; }
-      50% { opacity: 0.35; }
-    }
+    #statusBadge.on { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.5); color: #6ee7b7; }
+    #statusDot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; animation: pulse 1.8s infinite; }
+    #statusBadge.on #statusDot { background: #10b981; box-shadow: 0 0 14px #10b981; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
-    /* ============ BUTTONS ROW ============ */
-    .btn-row {
-      position: relative; z-index: 1;
-      display: flex;
-      padding: 12px 16px 6px;
-      gap: 8px;
-    }
+    .btns { display: flex; padding: 12px 16px; gap: 8px; }
     .btn {
-      flex: 1;
-      padding: 13px 6px;
-      border-radius: 26px;
-      font-size: 0.72rem;
-      font-weight: 700;
+      flex: 1; padding: 13px 6px; border-radius: 26px;
+      font-size: 0.72rem; font-weight: 700;
       border: 1px solid rgba(255,255,255,0.1);
       cursor: pointer;
       background: rgba(20,28,45,0.65);
       color: #cbd5e1;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      display: flex; align-items: center; justify-content: center;
-      gap: 5px;
-      transition: 0.2s;
-      white-space: nowrap;
-      letter-spacing: 0.3px;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
     }
     .btn:active { transform: scale(0.95); }
-    .btn.primary {
+    .btn.go {
       background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff; border: 1px solid rgba(255,255,255,0.25);
       box-shadow: 0 8px 22px rgba(37,99,235,0.45);
     }
-    .btn.danger { color: #f87171; border-color: rgba(239,68,68,0.3); }
 
-    /* ============ MESSAGES AREA ============ */
-    .msg-area {
-      position: relative; z-index: 1;
-      flex: 1;
-      overflow-y: auto;
-      padding: 14px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      scroll-behavior: smooth;
+    .msgs {
+      flex: 1; overflow-y: auto; padding: 14px 12px;
+      display: flex; flex-direction: column; gap: 10px;
     }
-    .msg-area::-webkit-scrollbar { width: 3px; }
-    .msg-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-
     .bubble {
-      max-width: 82%;
-      padding: 10px 15px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      line-height: 1.45;
-      word-break: break-word;
-      animation: popIn 0.25s ease;
+      max-width: 82%; padding: 10px 15px; border-radius: 20px;
+      font-size: 0.85rem; line-height: 1.45; word-break: break-word;
+      animation: pop .25s ease;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.25);
     }
-    .bubble.sent {
-      align-self: flex-end;
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
-      color: #fff;
-      border-bottom-right-radius: 5px;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-    .bubble.received {
-      align-self: flex-start;
-      background: rgba(25,30,48,0.9);
-      color: #e2e8f0;
-      border-bottom-left-radius: 5px;
-      border: 1px solid rgba(255,255,255,0.04);
-    }
-    .bubble.system {
-      align-self: center;
-      background: rgba(255,255,255,0.03);
-      color: #64748b;
-      font-size: 0.65rem;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-    }
-    @keyframes popIn {
-      from { opacity: 0; transform: translateY(10px) scale(0.96); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
+    .bubble.sent { align-self: flex-end; background: linear-gradient(135deg,#2563eb,#4f46e5); color:#fff; border-bottom-right-radius:5px; }
+    .bubble.received { align-self: flex-start; background: rgba(25,30,48,0.9); color:#e2e8f0; border-bottom-left-radius:5px; }
+    .bubble.sys { align-self: center; background: rgba(255,255,255,0.03); color:#64748b; font-size:0.65rem; padding:6px 14px; border-radius:20px; }
+    @keyframes pop { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-    /* ============ INPUT BAR ============ */
-    .input-bar {
-      position: relative; z-index: 1;
+    .input-row {
       padding: 10px 14px 16px;
       background: rgba(8,12,24,0.8);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-top: 1px solid rgba(255,255,255,0.05);
-      display: flex;
-      gap: 10px;
-      align-items: center;
+      display: flex; gap: 10px;
     }
     #msgInput {
-      flex: 1;
-      background: rgba(20,28,45,0.8);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 28px;
-      padding: 14px 18px;
-      font-size: 0.88rem;
-      color: #fff;
-      outline: none;
-      transition: 0.2s;
+      flex:1; background: rgba(20,28,45,0.8);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:28px; padding:14px 18px;
+      font-size:0.88rem; color:#fff; outline:none;
     }
-    #msgInput:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 18px rgba(59,130,246,0.25);
-    }
+    #msgInput:focus { border-color: #3b82f6; box-shadow:0 0 18px rgba(59,130,246,0.25); }
     #sendBtn {
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
-      border: none;
-      color: #fff;
-      font-size: 18px;
-      cursor: pointer;
-      box-shadow: 0 8px 22px rgba(37,99,235,0.5);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      width:46px; height:46px; border-radius:50%;
+      background: linear-gradient(135deg,#2563eb,#7c3aed);
+      border:none; color:#fff; font-size:18px; cursor:pointer;
+      box-shadow:0 8px 22px rgba(37,99,235,0.5);
     }
-    #sendBtn:active { transform: scale(0.9); }
+    #sendBtn:active { transform:scale(0.9); }
   </style>
 </head>
 <body>
 
-  <div class="app-card">
-
-    <!-- HEADER -->
-    <div class="header">
-      <div class="logo-row">
-        <div class="bt-icon">🔵</div>
-        <div class="title-text">
-          <h2>Bluetooth Chat</h2>
-          <span>NO INTERNET</span>
-        </div>
-      </div>
-      <div id="statusBadge">
-        <span id="statusDot"></span>
-        <span id="statusLabel">Offline</span>
-      </div>
+<div class="app-card">
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">🔵</div>
+      <div><h2>Bluetooth Chat</h2><span>OFFLINE</span></div>
     </div>
-
-    <!-- BUTTONS -->
-    <div class="btn-row">
-      <button class="btn" id="pairBtn">📱 Pair</button>
-      <button class="btn primary" id="connectBtn">🔗 Connect</button>
-      <button class="btn danger" id="discBtn">✖ Leave</button>
-    </div>
-
-    <!-- MESSAGES -->
-    <div class="msg-area" id="msgBox">
-      <div class="bubble system">✨ Welcome to Bluetooth Chat Pro</div>
-      <div class="bubble system" id="supportMsg">Checking Bluetooth...</div>
-      <div class="bubble system">📌 Pair both devices, then Connect</div>
-    </div>
-
-    <!-- INPUT -->
-    <div class="input-bar">
-      <input type="text" id="msgInput" placeholder="Type message..." autocomplete="off" autocorrect="off">
-      <button id="sendBtn">➤</button>
-    </div>
-
+    <div id="statusBadge"><span id="statusDot"></span><span id="statusLabel">Offline</span></div>
   </div>
 
-  <script>
-    // ================== BLUETOOTH CHAT ENGINE ==================
-    // Using Standard Nordic UART Service (widely supported)
-    const SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
-    const TX_CHAR = '6e400002-b5a3-f393-e0a9-e50e24dcca9e'; // We write here
-    const RX_CHAR = '6e400003-b5a3-f393-e0a9-e50e24dcca9e'; // We get notified
+  <div class="btns">
+    <button class="btn" id="pairBtn">📱 Pair</button>
+    <button class="btn go" id="connectBtn">🔗 Connect</button>
+    <button class="btn" id="discBtn" style="color:#f87171">✖ Leave</button>
+  </div>
 
-    // Variables
-    let bleDevice = null;
-    let gattServer = null;
-    let txChar = null;
-    let rxChar = null;
-    let isConnected = false;
+  <div class="msgs" id="msgBox">
+    <div class="bubble sys">✨ Bluetooth Chat Ready</div>
+    <div class="bubble sys" id="supportMsg">Checking...</div>
+  </div>
 
-    // DOM Elements
-    const statusBadge = document.getElementById('statusBadge');
-    const statusLabel = document.getElementById('statusLabel');
-    const msgBox = document.getElementById('msgBox');
-    const msgInput = document.getElementById('msgInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const pairBtn = document.getElementById('pairBtn');
-    const connectBtn = document.getElementById('connectBtn');
-    const discBtn = document.getElementById('discBtn');
-    const supportMsg = document.getElementById('supportMsg');
+  <div class="input-row">
+    <input id="msgInput" placeholder="Type message..." autocomplete="off">
+    <button id="sendBtn">➤</button>
+  </div>
+</div>
 
-    // ---------- CHECK BLUETOOTH SUPPORT ----------
-    if (!navigator.bluetooth) {
-      supportMsg.innerHTML = '❌ <b>Bluetooth not supported</b><br>Open in <u>Chrome</u> on Android/Desktop';
-      supportMsg.style.color = '#f87171';
-      pairBtn.disabled = true;
-      connectBtn.disabled = true;
-    } else {
-      supportMsg.textContent = '✅ Bluetooth ready – Pair & Connect';
-      supportMsg.style.color = '#6ee7b7';
-    }
+<script>
+const SVC='6e400001-b5a3-f393-e0a9-e50e24dcca9e';
+const TX='6e400002-b5a3-f393-e0a9-e50e24dcca9e';
+const RX='6e400003-b5a3-f393-e0a9-e50e24dcca9e';
 
-    // ---------- UPDATE CONNECTION UI ----------
-    function setConnected(connected) {
-      isConnected = connected;
-      if (connected) {
-        statusBadge.classList.add('connected');
-        statusLabel.textContent = 'Connected';
-      } else {
-        statusBadge.classList.remove('connected');
-        statusLabel.textContent = 'Offline';
-      }
-    }
+let dev=null, srv=null, tx=null, rx=null, conn=false;
 
-    // ---------- ADD MESSAGE TO CHAT ----------
-    function addMsg(text, type = 'received') {
-      const d = document.createElement('div');
-      d.className = 'bubble ' + type;
-      d.textContent = text;
-      msgBox.appendChild(d);
-      msgBox.scrollTop = msgBox.scrollHeight;
-    }
+const badge=document.getElementById('statusBadge');
+const label=document.getElementById('statusLabel');
+const box=document.getElementById('msgBox');
+const inp=document.getElementById('msgInput');
+const snd=document.getElementById('sendBtn');
+const sup=document.getElementById('supportMsg');
 
-    // ---------- HANDLE INCOMING DATA ----------
-    function onReceive(event) {
-      const val = event.target.value;
-      if (val) {
-        const txt = new TextDecoder().decode(val);
-        if (txt.trim()) addMsg(txt, 'received');
-      }
-    }
+if(!navigator.bluetooth){sup.textContent='❌ Use Chrome';pairBtn.disabled=connectBtn.disabled=true;}
+else sup.textContent='✅ Ready';
 
-    // ---------- FULL DISCONNECT ----------
-    async function fullDisconnect() {
-      try {
-        if (rxChar) {
-          rxChar.removeEventListener('characteristicvaluechanged', onReceive);
-          rxChar = null;
-        }
-        if (gattServer?.connected) await gattServer.disconnect();
-      } catch(e) {}
-      gattServer = null;
-      txChar = null;
-      bleDevice = null;
-      setConnected(false);
-      addMsg('🔌 Disconnected', 'system');
-    }
-
-    // ---------- PAIR DEVICE ----------
-    async function pairDevice() {
-      try {
-        addMsg('🔍 Searching for BLE devices...', 'system');
-        bleDevice = await navigator.bluetooth.requestDevice({
-          filters: [{ services: [SERVICE] }],
-          optionalServices: [SERVICE]
-        });
-        addMsg('📱 Paired: ' + (bleDevice.name || 'Device'), 'system');
-      } catch(err) {
-        if (err.name !== 'NotFoundError') addMsg('❌ Pairing cancelled', 'system');
-      }
-    }
-
-    // ---------- CONNECT ----------
-    async function connectDevice() {
-      if (!bleDevice) {
-        alert('Pehle "Pair" button dabao!');
-        return;
-      }
-      try {
-        await fullDisconnect();
-        addMsg('🔄 Connecting...', 'system');
-        gattServer = await bleDevice.gatt.connect();
-        const service = await gattServer.getPrimaryService(SERVICE);
-        txChar = await service.getCharacteristic(TX_CHAR);
-        rxChar = await service.getCharacteristic(RX_CHAR);
-        
-        await rxChar.startNotifications();
-        rxChar.addEventListener('characteristicvaluechanged', onReceive);
-        
-        setConnected(true);
-        addMsg('✅ Connected! Chat now!', 'system');
-        
-        bleDevice.addEventListener('gattserverdisconnected', () => {
-          addMsg('⚠️ Device disconnected', 'system');
-          fullDisconnect();
-        });
-      } catch(err) {
-        addMsg('❌ Connection failed: ' + err.message, 'system');
-        fullDisconnect();
-      }
-    }
-
-    // ---------- SEND MESSAGE ----------
-    async function sendMessage() {
-      const text = msgInput.value.trim();
-      if (!text) return;
-      if (!txChar || !isConnected) {
-        alert('Connect first!');
-        return;
-      }
-      try {
-        await txChar.writeValue(new TextEncoder().encode(text));
-        addMsg(text, 'sent');
-        msgInput.value = '';
-      } catch(err) {
-        addMsg('❌ Send failed', 'system');
-      }
-    }
-
-    // ---------- EVENT LISTENERS ----------
-    pairBtn.addEventListener('click', pairDevice);
-    connectBtn.addEventListener('click', connectDevice);
-    discBtn.addEventListener('click', fullDisconnect);
-    sendBtn.addEventListener('click', sendMessage);
-    msgInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') sendMessage();
-    });
-
-    // ---------- PWA INSTALL PROMPT ----------
-    let installPrompt = null;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      installPrompt = e;
-      // Show install message after 3 seconds
-      setTimeout(() => {
-        addMsg('📲 Tap here to Install App', 'system');
-        const installHint = msgBox.lastChild;
-        if (installHint) {
-          installHint.style.cursor = 'pointer';
-          installHint.style.background = 'rgba(37,99,235,0.2)';
-          installHint.style.color = '#93c5fd';
-          installHint.addEventListener('click', () => {
-            if (installPrompt) {
-              installPrompt.prompt();
-              installPrompt = null;
-            }
-          });
-        }
-      }, 3000);
-    });
-
-    // ---------- CLEANUP ON EXIT ----------
-    window.addEventListener('beforeunload', () => {
-      if (gattServer?.connected) gattServer.disconnect();
-    });
-
-    // ---------- INITIAL STATUS ----------
-    setConnected(false);
-  </script>
+function setConn(v){
+  conn=v;
+  badge.classList.toggle('on',v);
+  label.textContent=v?'Connected':'Offline';
+}
+function add(t,c){
+  const d=document.createElement('div');
+  d.className='bubble '+c; d.textContent=t;
+  box.appendChild(d); box.scrollTop=box.scrollHeight;
+}
+function rxH(e){
+  const v=e.target.value;
+  if(v){const t=new TextDecoder().decode(v); if(t.trim())add(t,'received');}
+}
+async function dc(){
+  try{if(rx){rx.removeEventListener('characteristicvaluechanged',rxH);rx=null;}
+  if(srv?.connected)await srv.disconnect();}catch(e){}
+  srv=tx=null; dev=null; setConn(false); add('🔌 Disconnected','sys');
+}
+async function pair(){
+  try{
+    add('🔍 Searching...','sys');
+    dev=await navigator.bluetooth.requestDevice({filters:[{services:[SVC]}],optionalServices:[SVC]});
+    add('📱 Paired: '+(dev.name||'Device'),'sys');
+  }catch(e){}
+}
+async function connect(){
+  if(!dev){alert('Pair first!');return;}
+  try{
+    await dc(); add('🔄 Connecting...','sys');
+    srv=await dev.gatt.connect();
+    const sv=await srv.getPrimaryService(SVC);
+    tx=await sv.getCharacteristic(TX);
+    rx=await sv.getCharacteristic(RX);
+    await rx.startNotifications();
+    rx.addEventListener('characteristicvaluechanged',rxH);
+    setConn(true); add('✅ Connected!','sys');
+    dev.addEventListener('gattserverdisconnected',()=>{add('⚠️ Disconnected','sys');dc();});
+  }catch(e){add('❌ Failed: '+e.message,'sys');dc();}
+}
+async function send(){
+  const t=inp.value.trim(); if(!t||!tx||!conn){alert('Connect first!');return;}
+  try{await tx.writeValue(new TextEncoder().encode(t));add(t,'sent');inp.value='';}
+  catch(e){add('❌ Send failed','sys');}
+}
+pairBtn.addEventListener('click',pair);
+connectBtn.addEventListener('click',connect);
+discBtn.addEventListener('click',dc);
+snd.addEventListener('click',send);
+inp.addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+window.addEventListener('beforeunload',()=>{if(srv?.connected)srv.disconnect();});
+setConn(false);
+</script>
 </body>
 </html>
