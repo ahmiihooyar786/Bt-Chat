@@ -1,141 +1,633 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  
-  <meta name="theme-color" content="#0a0e17">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="BT Chat">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="description" content="Offline Bluetooth Chat - No Internet Required">
-  
-  <!-- Manifest (external file) -->
-  <link rel="manifest" href="manifest.json">
-  
-  <title>Bluetooth Chat Pro</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp جیسا چیٹ</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{
-      font-family:'Segoe UI',system-ui,sans-serif;
-      background:radial-gradient(ellipse at 30% 30%,#0f172a,#020617);
-      min-height:100vh;display:flex;align-items:center;justify-content:center;padding:10px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .app{
-      width:100%;max-width:430px;height:94vh;
-      background:rgba(15,23,42,.75);backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);
-      border-radius:36px;border:1.5px solid rgba(255,255,255,.08);
-      box-shadow:0 40px 80px rgba(0,0,0,.6);display:flex;flex-direction:column;overflow:hidden;
+
+    body {
+      background: #dddbd1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
     }
-    .hdr{
-      padding:20px;background:rgba(8,12,24,.5);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-      border-bottom:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;
+
+    .app {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      background: #fff;
+      box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
     }
-    .logo{display:flex;align-items:center;gap:10px}
-    .logo-i{width:42px;height:42px;background:linear-gradient(135deg,#2563eb,#06b6d4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px}
-    .logo h2{font-size:1rem;font-weight:700;color:#e0f2fe}
-    .logo span{font-size:.6rem;color:#64748b;display:block}
-    #sb{padding:7px 15px;border-radius:30px;font-size:.68rem;font-weight:700;display:flex;align-items:center;gap:7px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);color:#f87171}
-    #sb.on{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.5);color:#6ee7b7}
-    #sd{width:8px;height:8px;border-radius:50%;background:#ef4444;animation:pulse 1.8s infinite}
-    #sb.on #sd{background:#10b981;box-shadow:0 0 14px #10b981}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-    .btns{display:flex;padding:12px 16px;gap:8px}
-    .btn{flex:1;padding:13px 6px;border-radius:26px;font-size:.72rem;font-weight:700;border:1px solid rgba(255,255,255,.1);cursor:pointer;background:rgba(20,28,45,.65);color:#cbd5e1;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;gap:5px}
-    .btn:active{transform:scale(.95)}
-    .btn.go{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:1px solid rgba(255,255,255,.25);box-shadow:0 8px 22px rgba(37,99,235,.45)}
-    .msgs{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px}
-    .bub{max-width:82%;padding:10px 15px;border-radius:20px;font-size:.85rem;line-height:1.45;word-break:break-word;animation:pop .25s ease;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 10px rgba(0,0,0,.25)}
-    .bub.sent{align-self:flex-end;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;border-bottom-right-radius:5px}
-    .bub.recv{align-self:flex-start;background:rgba(25,30,48,.9);color:#e2e8f0;border-bottom-left-radius:5px}
-    .bub.sys{align-self:center;background:rgba(255,255,255,.03);color:#64748b;font-size:.65rem;padding:6px 14px;border-radius:20px}
-    @keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    .inp-r{padding:10px 14px 16px;background:rgba(8,12,24,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,.05);display:flex;gap:10px}
-    #mi{flex:1;background:rgba(20,28,45,.8);border:1px solid rgba(255,255,255,.1);border-radius:28px;padding:14px 18px;font-size:.88rem;color:#fff;outline:none}
-    #mi:focus{border-color:#3b82f6;box-shadow:0 0 18px rgba(59,130,246,.25)}
-    #sn{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;color:#fff;font-size:18px;cursor:pointer;box-shadow:0 8px 22px rgba(37,99,235,.5)}
-    #sn:active{transform:scale(.9)}
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+      width: 35%;
+      min-width: 320px;
+      background: #ffffff;
+      border-right: 1px solid #ddd;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .sidebar-header {
+      background: #075e54;
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 65px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: #128c7e;
+    }
+
+    .sidebar-header .actions span {
+      margin-left: 15px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .search-box {
+      background: #f6f6f6;
+      padding: 10px;
+      border-bottom: 1px solid #e9e9e9;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      background: white;
+      outline: none;
+      font-size: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .contacts {
+      flex: 1;
+      overflow-y: auto;
+      background: #fff;
+    }
+
+    .contact {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      border-bottom: 1px solid #f2f2f2;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .contact:hover, .contact.active {
+      background: #ebebeb;
+    }
+
+    .contact-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .contact-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .contact-name {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .contact-last-msg {
+      font-size: 13px;
+      color: #777;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-time {
+      font-size: 12px;
+      color: #999;
+      margin-left: 10px;
+    }
+
+    /* ---------- CHAT AREA ---------- */
+    .chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #ece5dd;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .chat-header {
+      background: #075e54;
+      color: white;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      height: 65px;
+      z-index: 2;
+    }
+
+    .back-btn {
+      display: none;
+      margin-right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    .chat-contact-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #128c7e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: white;
+      margin-right: 12px;
+    }
+
+    .chat-contact-info {
+      flex: 1;
+    }
+
+    .chat-contact-name {
+      font-weight: 600;
+      font-size: 17px;
+    }
+
+    .online-status {
+      font-size: 12px;
+      color: #c5e0c5;
+    }
+
+    .chat-actions span {
+      margin-left: 20px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 20px 30px;
+      overflow-y: auto;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEVHcEzr6+vj4+Pf397b29vX19fU1NS/v7/Hx8fHx8cMAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAHklEQVQ4jWNgGAWjYBSMglEwCkbBKBgFo2AUjAKyAAARaAABhQFnNQAAAABJRU5ErkJggg==)';
+      background-repeat: repeat;
+      background-position: center;
+    }
+
+    .message-row {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .message-row.sent {
+      justify-content: flex-end;
+    }
+
+    .message-row.received {
+      justify-content: flex-start;
+    }
+
+    .message-bubble {
+      max-width: 70%;
+      padding: 10px 15px;
+      border-radius: 8px;
+      position: relative;
+      font-size: 14.5px;
+      line-height: 1.4;
+      word-wrap: break-word;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .sent .message-bubble {
+      background: #dcf8c6;
+      border-top-right-radius: 0;
+    }
+
+    .received .message-bubble {
+      background: #ffffff;
+      border-top-left-radius: 0;
+    }
+
+    .message-time {
+      font-size: 11px;
+      color: #777;
+      float: right;
+      margin-left: 10px;
+      margin-top: 5px;
+      white-space: nowrap;
+    }
+
+    .message-input-area {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      background: #f0f0f0;
+      border-top: 1px solid #ddd;
+      z-index: 2;
+    }
+
+    .message-input-area input {
+      flex: 1;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 25px;
+      outline: none;
+      font-size: 15px;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .send-btn {
+      background: #075e54;
+      color: white;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-left: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .send-btn:hover {
+      background: #128c7e;
+    }
+
+    .no-chat-selected {
+      flex: 1;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #aaa;
+      font-size: 18px;
+    }
+
+    /* ---------- MOBILE ---------- */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        min-width: unset;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 3;
+      }
+
+      .chat {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 2;
+        display: none;
+      }
+
+      .app.mobile-chat .sidebar {
+        display: none;
+      }
+
+      .app.mobile-chat .chat {
+        display: flex;
+      }
+
+      .back-btn {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
-
-<div class="app">
-  <div class="hdr">
-    <div class="logo">
-      <div class="logo-i">🔵</div>
-      <div><h2>Bluetooth Chat</h2><span>OFFLINE</span></div>
+  <div class="app" id="app">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-avatar">You</div>
+        <div class="actions">
+          <span>💬</span>
+          <span>⋮</span>
+        </div>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="🔍  تلاش کریں یا نئی چیٹ شروع کریں" id="searchInput" />
+      </div>
+      <div class="contacts" id="contactsContainer"></div>
     </div>
-    <div id="sb"><span id="sd"></span><span id="sl">Offline</span></div>
+
+    <!-- Chat Area -->
+    <div class="chat" id="chatArea">
+      <div class="chat-header">
+        <button class="back-btn" id="backBtn">←</button>
+        <div class="chat-contact-avatar" id="chatAvatar">M</div>
+        <div class="chat-contact-info">
+          <div class="chat-contact-name" id="chatName">Contact</div>
+          <div class="online-status">آن لائن</div>
+        </div>
+        <div class="chat-actions">
+          <span>📞</span>
+          <span>⋮</span>
+        </div>
+      </div>
+      <div class="messages" id="messagesContainer">
+        <div class="no-chat-selected">
+          <div style="font-size:40px;">💬</div>
+          <div>کوئی چیٹ منتخب نہیں ہے</div>
+        </div>
+      </div>
+      <div class="message-input-area">
+        <input type="text" placeholder="پیغام لکھیں" id="messageInput" />
+        <button class="send-btn" id="sendBtn">➤</button>
+      </div>
+    </div>
   </div>
 
-  <div class="btns">
-    <button class="btn" id="pb">📱 Pair</button>
-    <button class="btn go" id="cb">🔗 Connect</button>
-    <button class="btn" id="db" style="color:#f87171">✖ Leave</button>
-  </div>
+  <script>
+    (function() {
+      // ---------- DATA ----------
+      const defaultContacts = [
+        { id: 1, name: 'Maa', avatar: 'M', color: '#e91e63' },
+        { id: 2, name: 'Papa', avatar: 'P', color: '#4caf50' },
+        { id: 3, name: 'Bhai', avatar: 'B', color: '#2196f3' },
+        { id: 4, name: 'Dost Ali', avatar: 'A', color: '#ff9800' },
+        { id: 5, name: 'Office Group', avatar: 'O', color: '#795548' }
+      ];
 
-  <div class="msgs" id="mb">
-    <div class="bub sys">✨ Bluetooth Chat Pro</div>
-    <div class="bub sys" id="sm">Checking...</div>
-  </div>
+      let contacts = JSON.parse(localStorage.getItem('waContacts')) || defaultContacts;
+      
+      // Messages structure: { contactId: [ {text, sender('me'/'them'), time} ] }
+      let messages = JSON.parse(localStorage.getItem('waMessages')) || {};
 
-  <div class="inp-r">
-    <input id="mi" placeholder="Type message..." autocomplete="off">
-    <button id="sn">➤</button>
-  </div>
-</div>
+      // Initialize messages with some sample if empty
+      if (Object.keys(messages).length === 0) {
+        messages = {
+          1: [
+            { text: 'Beta khana kha liya?', sender: 'them', time: '10:30 AM' },
+            { text: 'Haan maa, abhi kha kar aaya', sender: 'me', time: '10:32 AM' }
+          ],
+          2: [
+            { text: 'Office se nikal gaye?', sender: 'them', time: '5:45 PM' },
+            { text: 'Nikal raha hoon Papa', sender: 'me', time: '5:46 PM' }
+          ],
+          3: [
+            { text: 'Match dekh raha hai?', sender: 'them', time: '8:15 PM' }
+          ],
+          4: [
+            { text: 'Party kab karni hai?', sender: 'them', time: '3:20 PM' }
+          ]
+        };
+        saveMessages();
+      }
 
-<script>
-// Register Service Worker from external file
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
-    .then(() => console.log('SW registered'));
-}
+      // Ensure contacts match messages keys
+      contacts.forEach(c => {
+        if (!messages[c.id]) messages[c.id] = [];
+      });
+      saveMessages();
 
-// ========== BLUETOOTH CHAT ENGINE ==========
-const S='6e400001-b5a3-f393-e0a9-e50e24dcca9e';
-const TX='6e400002-b5a3-f393-e0a9-e50e24dcca9e';
-const RX='6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+      // Current selected contact
+      let currentContactId = null;
 
-let d=null,v=null,t=null,r=null,co=false;
-const sb=document.getElementById('sb'),sl=document.getElementById('sl');
-const mb=document.getElementById('mb'),mi=document.getElementById('mi');
-const sm=document.getElementById('sm');
+      // ---------- DOM ELEMENTS ----------
+      const app = document.getElementById('app');
+      const contactsContainer = document.getElementById('contactsContainer');
+      const chatName = document.getElementById('chatName');
+      const chatAvatar = document.getElementById('chatAvatar');
+      const messagesContainer = document.getElementById('messagesContainer');
+      const messageInput = document.getElementById('messageInput');
+      const sendBtn = document.getElementById('sendBtn');
+      const backBtn = document.getElementById('backBtn');
+      const searchInput = document.getElementById('searchInput');
 
-if(!navigator.bluetooth){sm.textContent='❌ Use Chrome';pb.disabled=cb.disabled=true}
-else sm.textContent='✅ Ready — Pair & Connect';
+      // ---------- FUNCTIONS ----------
+      function formatTime() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${hours}:${minutes} ${ampm}`;
+      }
 
-function sc(c){co=c;sb.classList.toggle('on',c);sl.textContent=c?'Connected':'Offline'}
-function ad(tx,c){const e=document.createElement('div');e.className='bub '+c;e.textContent=tx;mb.appendChild(e);mb.scrollTop=mb.scrollHeight}
-function rh(e){const v=e.target.value;if(v){const t=new TextDecoder().decode(v);if(t.trim())ad(t,'recv')}}
-async function dc(){
-  try{if(r){r.removeEventListener('characteristicvaluechanged',rh);r=null}if(v?.connected)await v.disconnect()}catch(e){}
-  v=t=null;d=null;sc(false);ad('🔌 Disconnected','sys')
-}
-async function pair(){
-  try{ad('🔍 Searching...','sys');d=await navigator.bluetooth.requestDevice({filters:[{services:[S]}],optionalServices:[S]});ad('📱 Paired: '+(d.name||'Device'),'sys')}catch(e){}
-}
-async function connect(){
-  if(!d){alert('Pair first!');return}
-  try{
-    await dc();ad('🔄 Connecting...','sys');
-    v=await d.gatt.connect();const sv=await v.getPrimaryService(S);
-    t=await sv.getCharacteristic(TX);r=await sv.getCharacteristic(RX);
-    await r.startNotifications();r.addEventListener('characteristicvaluechanged',rh);
-    sc(true);ad('✅ Connected!','sys');
-    d.addEventListener('gattserverdisconnected',()=>{ad('⚠️ Disconnected','sys');dc()})
-  }catch(e){ad('❌ Failed: '+e.message,'sys');dc()}
-}
-async function sd(){
-  const tx=mi.value.trim();if(!tx||!t||!co){alert('Connect first!');return}
-  try{await t.writeValue(new TextEncoder().encode(tx));ad(tx,'sent');mi.value=''}catch(e){ad('❌ Send failed','sys')}
-}
-pb.addEventListener('click',pair);cb.addEventListener('click',connect);db.addEventListener('click',dc);
-sn.addEventListener('click',sd);mi.addEventListener('keydown',e=>{if(e.key==='Enter')sd()});
-window.addEventListener('beforeunload',()=>{if(v?.connected)v.disconnect()});
-sc(false);
-</script>
+      function saveMessages() {
+        localStorage.setItem('waMessages', JSON.stringify(messages));
+        localStorage.setItem('waContacts', JSON.stringify(contacts));
+      }
+
+      function getLastMessage(contactId) {
+        const msgs = messages[contactId];
+        if (!msgs || msgs.length === 0) return { text: 'کوئی پیغام نہیں', time: '' };
+        const last = msgs[msgs.length - 1];
+        const prefix = last.sender === 'me' ? 'آپ: ' : '';
+        return { text: prefix + last.text, time: last.time };
+      }
+
+      function renderContacts(filter = '') {
+        const filtered = contacts.filter(c => c.name.toLowerCase().includes(filter.toLowerCase()));
+        contactsContainer.innerHTML = filtered.map(contact => {
+          const last = getLastMessage(contact.id);
+          const isActive = currentContactId === contact.id;
+          return `
+            <div class="contact ${isActive ? 'active' : ''}" data-id="${contact.id}">
+              <div class="contact-avatar" style="background:${contact.color}">${contact.avatar}</div>
+              <div class="contact-info">
+                <div class="contact-name">
+                  <span>${contact.name}</span>
+                  <span class="contact-time">${last.time}</span>
+                </div>
+                <div class="contact-last-msg">${last.text}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Add click listeners to contacts
+        document.querySelectorAll('.contact').forEach(el => {
+          el.addEventListener('click', () => {
+            const id = parseInt(el.dataset.id);
+            selectContact(id);
+          });
+        });
+      }
+
+      function renderMessages() {
+        if (!currentContactId) {
+          messagesContainer.innerHTML = `
+            <div class="no-chat-selected">
+              <div style="font-size:40px;">💬</div>
+              <div>کوئی چیٹ منتخب نہیں ہے</div>
+            </div>`;
+          return;
+        }
+
+        const msgs = messages[currentContactId] || [];
+        messagesContainer.innerHTML = msgs.map(msg => {
+          const cls = msg.sender === 'me' ? 'sent' : 'received';
+          return `
+            <div class="message-row ${cls}">
+              <div class="message-bubble">
+                ${msg.text}
+                <span class="message-time">${msg.time}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Scroll to bottom
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      function selectContact(id) {
+        currentContactId = id;
+        const contact = contacts.find(c => c.id === id);
+        if (contact) {
+          chatName.textContent = contact.name;
+          chatAvatar.textContent = contact.avatar;
+          chatAvatar.style.background = contact.color;
+        }
+        renderMessages();
+        renderContacts(searchInput.value);
+
+        // Mobile: show chat only
+        if (window.innerWidth <= 768) {
+          app.classList.add('mobile-chat');
+        }
+      }
+
+      function sendMessage() {
+        const text = messageInput.value.trim();
+        if (!text || !currentContactId) return;
+
+        const time = formatTime();
+        const msg = { text, sender: 'me', time };
+        messages[currentContactId].push(msg);
+        saveMessages();
+        messageInput.value = '';
+        renderMessages();
+        renderContacts(searchInput.value); // update last message in sidebar
+
+        // Auto reply simulation
+        setTimeout(() => {
+          const replies = [
+            'ہاں جی', 'اچھا', 'ٹھیک ہے', '😊', 'اوکے', 'دیکھتا ہوں',
+            'کوئی بات نہیں', 'بس ٹھیک ہوں', 'پھر ملیں گے', 'آپ سنائیں'
+          ];
+          const randomReply = replies[Math.floor(Math.random() * replies.length)];
+          const replyTime = formatTime();
+          const replyMsg = { text: randomReply, sender: 'them', time: replyTime };
+          messages[currentContactId].push(replyMsg);
+          saveMessages();
+          if (currentContactId) { // still on same chat
+            renderMessages();
+            renderContacts(searchInput.value);
+          }
+        }, 1500);
+      }
+
+      function goBackToSidebar() {
+        app.classList.remove('mobile-chat');
+        currentContactId = null;
+        chatName.textContent = 'Contact';
+        chatAvatar.textContent = '?';
+        chatAvatar.style.background = '#128c7e';
+        renderMessages();
+        renderContacts(searchInput.value);
+      }
+
+      // ---------- EVENT LISTENERS ----------
+      sendBtn.addEventListener('click', sendMessage);
+      messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+
+      backBtn.addEventListener('click', goBackToSidebar);
+
+      searchInput.addEventListener('input', (e) => {
+        renderContacts(e.target.value);
+      });
+
+      // Handle window resize: on desktop always show sidebar+chat, on mobile respect class
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+          app.classList.remove('mobile-chat');
+        } else {
+          if (!currentContactId) {
+            app.classList.remove('mobile-chat');
+          } else {
+            app.classList.add('mobile-chat');
+          }
+        }
+        renderContacts(searchInput.value);
+      });
+
+      // ---------- INIT ----------
+      renderContacts();
+      renderMessages();
+
+      // Set initial chat if any contact has messages? None selected by default
+      // Optional: auto-select first contact on load
+      // Uncomment below to open first contact automatically
+      // if (contacts.length > 0) selectContact(contacts[0].id);
+    })();
+  </script>
 </body>
 </html>
