@@ -3,248 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AHMAR RDX · ToolVault Pro</title>
+  <title>AHMAR RDX · ToolVault</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'Segoe UI',system-ui,sans-serif;background:#0b0b10;color:#e0e0e0;min-height:100vh;}
-    .container{max-width:1200px;margin:0 auto;padding:1.2rem;}
-    /* Header */
-    .header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding:1rem 1.5rem;background:#14141f;border-radius:16px;border:1px solid #2a2a3a;margin-bottom:1.8rem;box-shadow:0 8px 24px rgba(0,0,0,0.4);}
-    .logo{display:flex;align-items:center;gap:0.6rem;}
-    .logo span{font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,#ff4757,#ff6b81);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .logo small{color:#aaa;font-size:0.7rem;display:block;letter-spacing:1px;}
-    .actions{display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;}
-    .btn{padding:0.6rem 1.2rem;border-radius:30px;border:none;font-weight:600;cursor:pointer;transition:0.25s;font-size:0.9rem;display:flex;align-items:center;gap:0.4rem;background:#1e1e2a;color:#ddd;border:1px solid #333;}
-    .btn:hover{background:#2a2a3a;border-color:#ff4757;color:#fff;}
-    .btn-primary{background:#ff4757;color:#fff;border:none;box-shadow:0 4px 14px rgba(255,71,87,0.35);}
-    .btn-primary:hover{background:#ff6b81;transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,71,87,0.5);}
-    .btn-sm{padding:0.4rem 1rem;font-size:0.8rem;}
-    .search-input{padding:0.55rem 1rem;border-radius:30px;background:#1e1e2a;border:1px solid #333;color:#fff;width:180px;outline:none;}
-    .search-input:focus{border-color:#ff4757;width:220px;}
-    /* Tools Grid */
-    .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px,1fr));gap:1rem;}
-    .card{background:#14141f;border-radius:14px;padding:1.2rem;border:1px solid #2a2a3a;transition:0.25s;cursor:pointer;display:flex;flex-direction:column;gap:0.8rem;}
-    .card:hover{border-color:#ff4757;transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,0.5);}
-    .card-top{display:flex;justify-content:space-between;align-items:flex-start;}
-    .card-title{font-weight:700;font-size:1.1rem;flex:1;word-break:break-word;}
-    .card-actions{display:flex;gap:0.3rem;}
-    .card-preview{font-family:monospace;font-size:0.7rem;color:#888;background:#0d0d14;padding:0.5rem;border-radius:8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-    /* Modal */
-    .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem;}
+    body{background:#0c0c16;color:#eee;font-family:'Segoe UI',sans-serif;padding:20px;}
+    .brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+    .brand h1{font-size:1.8rem;background:linear-gradient(135deg,#ff4757,#ff6b81);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+    input,textarea,button{outline:none;border:none;padding:10px 15px;border-radius:8px;font-family:inherit;}
+    input,textarea{background:#1a1a2e;color:#fff;border:1px solid #333;width:200px;}
+    textarea{width:300px;height:60px;resize:none;}
+    button{background:#ff4757;color:#fff;font-weight:bold;cursor:pointer;transition:.2s;}
+    button:hover{background:#ff6b81;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:15px;}
+    .card{background:#14141f;padding:15px;border-radius:10px;border:1px solid #2a2a3a;cursor:pointer;transition:.2s;}
+    .card:hover{border-color:#ff4757;}
+    .card h3{font-size:1rem;margin-bottom:8px;}
+    .card pre{background:#0a0a14;padding:8px;border-radius:5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:.7rem;color:#aaa;}
+    .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:100;}
     .modal.active{display:flex;}
-    .modal-box{background:#1a1a28;border-radius:16px;width:100%;max-width:600px;max-height:85vh;overflow-y:auto;border:1px solid #333;box-shadow:0 20px 40px rgba(0,0,0,0.6);}
-    .modal-header{padding:1.2rem;border-bottom:1px solid #2a2a3a;display:flex;justify-content:space-between;align-items:center;}
-    .modal-header h3{font-size:1.2rem;}
-    .modal-close{background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;}
-    .modal-body{padding:1.2rem;display:flex;flex-direction:column;gap:1rem;}
-    .modal-body input, .modal-body textarea{width:100%;padding:0.8rem;border-radius:10px;background:#12121c;border:1px solid #333;color:#fff;font-family:inherit;outline:none;resize:vertical;}
-    .modal-body textarea{min-height:180px;font-family:'Courier New',monospace;font-size:0.8rem;}
-    .modal-body input:focus, .modal-body textarea:focus{border-color:#ff4757;}
-    .modal-footer{padding:1rem 1.2rem;border-top:1px solid #2a2a3a;display:flex;justify-content:flex-end;gap:0.6rem;}
-    .empty-state{text-align:center;grid-column:1/-1;padding:3rem 1rem;}
-    .empty-state h3{font-size:1.5rem;margin-bottom:0.5rem;}
-    .tool-runner{width:100%;height:70vh;border:none;background:#fff;}
+    .modal-box{background:#1a1a28;padding:20px;border-radius:12px;width:95%;max-width:800px;max-height:80vh;overflow:auto;}
+    .modal-box iframe{width:100%;height:70vh;border:none;}
+    .close{position:absolute;top:10px;right:20px;font-size:1.5rem;cursor:pointer;color:#fff;}
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- HEADER -->
-    <header class="header">
-      <div class="logo">
-        <span>⚡ AHMAR RDX</span>
-        <small>TOOL VAULT PRO</small>
-      </div>
-      <div class="actions">
-        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search tools...">
-        <button class="btn btn-sm" onclick="exportTools()">📤 Export</button>
-        <button class="btn btn-sm" onclick="document.getElementById('importFile').click()">📥 Import</button>
-        <input type="file" id="importFile" accept=".json" hidden onchange="importTools(event)">
-        <button class="btn btn-primary" onclick="openAddModal()">➕ Add Tool</button>
-      </div>
-    </header>
-
-    <!-- TOOLS GRID -->
-    <div class="grid" id="toolsGrid"></div>
+  <div class="brand">
+    <h1>⚡ AHMAR RDX TOOLS</h1>
+    <span style="color:#888;">Your own tool collection</span>
   </div>
 
-  <!-- ADD/EDIT MODAL -->
-  <div class="modal" id="addEditModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="modalTitle">Add New Tool</h3>
-        <button class="modal-close" onclick="closeModal('addEditModal')">&times;</button>
-      </div>
-      <div class="modal-body">
-        <input type="text" id="toolName" placeholder="Tool Name (e.g., Color Picker)">
-        <textarea id="toolCode" placeholder="Paste your HTML code here..."></textarea>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" onclick="closeModal('addEditModal')">Cancel</button>
-        <button class="btn btn-primary" id="saveToolBtn">💾 Save Tool</button>
-      </div>
-    </div>
+  <div class="controls">
+    <input type="text" id="toolName" placeholder="Tool name...">
+    <textarea id="toolCode" placeholder="Paste full HTML here..."></textarea>
+    <button onclick="addTool()">➕ Add Tool</button>
+    <button onclick="exportTools()" style="background:#333;">📤 Export</button>
+    <label style="background:#1a1a2e;padding:8px 15px;border-radius:8px;cursor:pointer;color:#fff;">
+      📥 Import <input type="file" id="importFile" accept=".json" hidden onchange="importTools(event)">
+    </label>
   </div>
 
-  <!-- RUN TOOL MODAL -->
+  <div class="grid" id="toolGrid"></div>
+
+  <!-- Run modal -->
   <div class="modal" id="runModal">
-    <div class="modal-box" style="max-width:95%;">
-      <div class="modal-header">
-        <h3 id="runTitle">Running Tool</h3>
-        <button class="modal-close" onclick="closeRunModal()">&times;</button>
-      </div>
-      <div class="modal-body" style="padding:0;">
-        <iframe class="tool-runner" id="runnerFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" onclick="openInNewTab()">🔗 Open in New Tab</button>
-        <button class="btn btn-primary" onclick="closeRunModal()">Close</button>
-      </div>
+    <div class="modal-box">
+      <span class="close" onclick="closeRun()">&times;</span>
+      <h3 id="runTitle"></h3>
+      <iframe id="runFrame" sandbox="allow-scripts allow-forms allow-popups allow-same-origin"></iframe>
     </div>
   </div>
 
   <script>
-    const STORAGE_KEY = 'ahmar_rdx_tools';
-    let tools = [];
-    let currentTool = null;
-    let editId = null;
-
-    // Default tools
-    const defaults = [
-      { id: '1', name: '🎨 Color Picker', code: '<!DOCTYPE html><html><head><style>body{font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;background:#0b0b10;color:#fff;}input[type=color]{width:80px;height:80px;border:none;border-radius:12px;}.info{background:#1a1a2e;padding:1.5rem;border-radius:12px;margin-top:1rem;}</style></head><body><h2>AHMAR RDX - Color Picker</h2><input type="color" id="c" value="#ff4757"><div class="info">HEX: <span id="h">#ff4757</span></div><script>c.oninput=()=>h.textContent=c.value;<\/script></body></html>', createdAt: Date.now() },
-      { id: '2', name: '🔐 Password Generator', code: '<!DOCTYPE html><html><head><style>body{font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;background:#0b0b10;color:#fff;}button{padding:0.8rem 1.5rem;border:none;border-radius:30px;background:#ff4757;color:#fff;font-weight:bold;cursor:pointer;}.output{background:#1a1a2e;padding:1rem 2rem;border-radius:10px;margin:1rem;font-family:monospace;font-size:1.2rem;}</style></head><body><h2>AHMAR RDX - Password Generator</h2><div class="output" id="pw">Click Generate</div><button onclick="gen()">✨ Generate</button><script>function gen(){let c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';let p='';for(let i=0;i<16;i++)p+=c[Math.floor(Math.random()*c.length)];document.getElementById('pw').textContent=p;}</script></body></html>', createdAt: Date.now() }
+    const STORAGE = 'ahmar_tools';
+    let tools = JSON.parse(localStorage.getItem(STORAGE)) || [
+      { id: '1', name: '🎨 Color Picker', code: '<!DOCTYPE html><html><head><style>body{font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;background:#0c0c16;color:#fff;}input[type=color]{width:80px;height:80px;border:none;border-radius:10px;}.info{background:#1a1a2e;padding:20px;border-radius:10px;margin-top:20px;}</style></head><body><h2>AHMAR RDX</h2><input type="color" id="c" value="#ff4757"><div class="info">HEX: <span id="h">#ff4757</span></div><script>c.oninput=()=>h.textContent=c.value;<\/script></body></html>', time: Date.now() }
     ];
 
-    function loadTools() {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      tools = stored ? JSON.parse(stored) : [...defaults];
-      if (!stored) saveTools();
-    }
-    function saveTools() { localStorage.setItem(STORAGE_KEY, JSON.stringify(tools)); }
-    function render(filter='') {
-      const grid = document.getElementById('toolsGrid');
-      const q = filter.toLowerCase();
-      const filtered = tools.filter(t => t.name.toLowerCase().includes(q));
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div class="empty-state"><h3>🧰 No tools found</h3><p>${tools.length===0?'Click "+ Add Tool" to start.':'Try a different search.'}</p></div>`;
-        return;
-      }
-      grid.innerHTML = filtered.map(t => {
-        const preview = t.code.replace(/<[^>]*>/g, '').substring(0,60) || '(code)';
-        return `<div class="card" onclick="runTool('${t.id}')">
-          <div class="card-top">
-            <div class="card-title">${t.name}</div>
-            <div class="card-actions" onclick="event.stopPropagation()">
-              <button class="btn btn-sm" onclick="editTool('${t.id}')">✏️</button>
-              <button class="btn btn-sm" style="background:#e74c3c;border:none;" onclick="deleteTool('${t.id}')">🗑️</button>
-            </div>
+    function save() { localStorage.setItem(STORAGE, JSON.stringify(tools)); }
+    function render() {
+      const grid = document.getElementById('toolGrid');
+      grid.innerHTML = tools.map(t => `
+        <div class="card" onclick="run('${t.id}')">
+          <h3>${t.name}</h3>
+          <pre>${t.code.replace(/<[^>]*>/g,'').substring(0,50)}...</pre>
+          <div style="display:flex;gap:6px;margin-top:8px;">
+            <button style="font-size:.7rem;padding:4px 10px;" onclick="event.stopPropagation();editTool('${t.id}')">✏️</button>
+            <button style="font-size:.7rem;padding:4px 10px;background:#e74c3c;" onclick="event.stopPropagation();deleteTool('${t.id}')">🗑️</button>
           </div>
-          <div class="card-preview">${preview}</div>
-        </div>`;
-      }).join('');
+        </div>
+      `).join('');
     }
 
-    // Add/Edit modal
-    function openAddModal() {
-      editId = null;
-      document.getElementById('modalTitle').textContent = '➕ Add New Tool';
-      document.getElementById('toolName').value = '';
-      document.getElementById('toolCode').value = '';
-      document.getElementById('addEditModal').classList.add('active');
-    }
-    function editTool(id) {
-      const tool = tools.find(t => t.id === id);
-      if(!tool) return;
-      editId = id;
-      document.getElementById('modalTitle').textContent = '✏️ Edit Tool';
-      document.getElementById('toolName').value = tool.name;
-      document.getElementById('toolCode').value = tool.code;
-      document.getElementById('addEditModal').classList.add('active');
-    }
-    document.getElementById('saveToolBtn').addEventListener('click', () => {
+    window.addTool = function() {
       const name = document.getElementById('toolName').value.trim();
       const code = document.getElementById('toolCode').value.trim();
       if(!name || !code) return alert('Please fill both fields.');
-      if(editId) {
-        const tool = tools.find(t => t.id === editId);
-        if(tool) { tool.name = name; tool.code = code; }
-      } else {
-        tools.unshift({ id: Date.now().toString(), name, code, createdAt: Date.now() });
-      }
-      saveTools();
-      closeModal('addEditModal');
-      render(document.getElementById('searchInput').value);
-    });
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+      tools.unshift({ id: Date.now().toString(), name, code, time: Date.now() });
+      save(); render();
+      document.getElementById('toolName').value = '';
+      document.getElementById('toolCode').value = '';
+    };
 
-    // Run tool
-    function runTool(id) {
+    window.editTool = function(id) {
       const tool = tools.find(t => t.id === id);
       if(!tool) return;
-      currentTool = tool;
+      document.getElementById('toolName').value = tool.name;
+      document.getElementById('toolCode').value = tool.code;
+      tools = tools.filter(t => t.id !== id); // remove and re-add after edit
+      save(); render();
+    };
+
+    window.deleteTool = function(id) {
+      if(!confirm('Delete?')) return;
+      tools = tools.filter(t => t.id !== id);
+      save(); render();
+    };
+
+    window.run = function(id) {
+      const tool = tools.find(t => t.id === id);
+      if(!tool) return;
       document.getElementById('runTitle').textContent = '▶️ ' + tool.name;
-      document.getElementById('runnerFrame').srcdoc = tool.code;
+      document.getElementById('runFrame').srcdoc = tool.code;
       document.getElementById('runModal').classList.add('active');
-    }
-    function closeRunModal() {
+    };
+
+    window.closeRun = function() {
       document.getElementById('runModal').classList.remove('active');
-      document.getElementById('runnerFrame').srcdoc = '';
-      currentTool = null;
-    }
-    function openInNewTab() {
-      if(!currentTool) return;
-      const win = window.open('', '_blank');
-      win.document.write(currentTool.code);
-      win.document.close();
-    }
+      document.getElementById('runFrame').srcdoc = '';
+    };
 
-    // Delete
-    function deleteTool(id) {
-      if(confirm('Delete this tool?')) {
-        tools = tools.filter(t => t.id !== id);
-        saveTools();
-        render(document.getElementById('searchInput').value);
-      }
-    }
-
-    // Export/Import
-    function exportTools() {
+    window.exportTools = function() {
       const blob = new Blob([JSON.stringify(tools)], {type:'application/json'});
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'ahmar-rdx-tools-backup.json';
+      a.download = 'ahmar-rdx-tools.json';
       a.click();
-    }
-    function importTools(e) {
+    };
+
+    window.importTools = function(e) {
       const file = e.target.files[0];
       if(!file) return;
       const reader = new FileReader();
-      reader.onload = (ev) => {
+      reader.onload = ev => {
         try {
           const data = JSON.parse(ev.target.result);
-          if(!Array.isArray(data)) throw new Error();
-          data.forEach(t => { if(!tools.some(x=>x.name===t.name && x.code===t.code)) tools.unshift({...t, id:Date.now().toString()+Math.random()}); });
-          saveTools();
-          render(document.getElementById('searchInput').value);
-        } catch(ex) { alert('Invalid file.'); }
+          data.forEach(t => { if(!tools.find(x=>x.name===t.name && x.code===t.code)) tools.unshift({...t, id:Date.now().toString()}); });
+          save(); render();
+        } catch{ alert('Invalid file'); }
       };
       reader.readAsText(file);
       e.target.value = '';
-    }
+    };
 
-    // Search
-    document.getElementById('searchInput').addEventListener('input', (e) => render(e.target.value));
-
-    // Init
-    loadTools();
+    // initial
     render();
-
-    // Close modals on overlay click
-    window.addEventListener('click', (e) => {
-      if(e.target.classList.contains('modal')) {
-        if(e.target.id === 'addEditModal') closeModal('addEditModal');
-        if(e.target.id === 'runModal') closeRunModal();
-      }
-    });
   </script>
 </body>
-        </html>
+</html>
