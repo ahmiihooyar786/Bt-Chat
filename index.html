@@ -3,146 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Tools Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>AHMD RDX | Professional Toolkit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --primary: #6366f1;
-            --secondary: #ec4899;
-            --text-light: #f8fafc;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --bg-body: #050509;
+            --bg-card: #0d0d14;
+            --bg-input: #14141f;
+            --text-main: #f4f4f7;
+            --text-muted: #808099;
+            --accent: #3b82f6; /* Professional Blue */
+            --accent-glow: rgba(59, 130, 246, 0.3);
+            --border: rgba(255, 255, 255, 0.06);
+            --font-family: 'Inter', sans-serif;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: var(--font-family);
         }
 
         body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.15), transparent 25%);
-            background-attachment: fixed;
-            color: var(--text-light);
+            background-color: var(--bg-body);
+            color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
+            letter-spacing: -0.02em;
         }
 
-        /* Header */
+        /* Subtle Grid Background Pattern */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Header & Branding */
         header {
-            text-align: center;
-            padding: 50px 20px 30px;
-            position: relative;
-            z-index: 10;
+            padding: 40px 20px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(5, 5, 9, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #818cf8, #f472b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+        .brand-area {
+            display: flex;
+            flex-direction: column;
         }
 
-        header p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-            font-weight: 300;
+        .brand-main {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.05em;
         }
 
-        /* Container & Grid */
+        .brand-main span {
+            color: var(--accent);
+        }
+
+        .brand-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .top-stats {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        /* Main Container */
         .container {
-            max-width: 1200px;
-            margin: 0 auto 60px;
+            max-width: 1300px;
+            margin: 50px auto 100px;
             padding: 0 20px;
         }
 
+        /* Professional Tools Grid */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 20px;
+            gap: 25px;
         }
 
-        /* App Cards */
+        /* Tool Card - Ultra Pro Design */
         .tool-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
             padding: 25px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 4px;
-            background: var(--card-gradient, linear-gradient(to right, #6366f1, #ec4899));
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 280px;
         }
 
         .tool-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px var(--accent-glow);
         }
 
-        .tool-icon-wrapper {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+        /* The Dynamic Logo based on Tool Name */
+        .tool-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 35px;
-            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
             margin-bottom: 20px;
-            background: var(--card-gradient, linear-gradient(135deg, #6366f1, #ec4899));
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: 0.3s ease;
         }
 
-        .tool-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #f1f5f9;
-            margin-bottom: 25px;
-            width: 100%;
+        .tool-card:hover .tool-logo {
+            background: var(--accent);
+            color: #white;
+            border-color: var(--accent);
+        }
+
+        .tool-meta h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
+        /* Card Branding AHMD RDX */
+        .card-branding {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+
+        /* Card Action Buttons */
         .card-actions {
             display: flex;
-            width: 100%;
             gap: 10px;
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+            margin-top: auto;
         }
 
         .launch-btn {
             flex-grow: 1;
             padding: 12px;
             border: none;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: var(--accent);
             color: white;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.2s ease;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -150,18 +199,17 @@
         }
 
         .launch-btn:hover {
-            background: white;
-            color: #0f172a;
+            background: #2563eb; /* Darker Blue */
         }
 
         .delete-btn {
             padding: 12px 15px;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.2s ease;
         }
 
         .delete-btn:hover {
@@ -169,41 +217,42 @@
             color: white;
         }
 
-        /* Floating Action Button */
+        /* Floating Action Button (FAB) */
         .fab-btn {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 65px;
-            height: 65px;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #6366f1, #ec4899);
+            background: var(--accent);
             color: white;
-            font-size: 24px;
+            font-size: 20px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+            box-shadow: 0 10px 20px var(--accent-glow);
             transition: all 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 100;
+            z-index: 1000;
         }
 
         .fab-btn:hover {
             transform: scale(1.1) rotate(90deg);
+            background: #2563eb;
         }
 
-        /* Modal / Popup */
+        /* Modal / Popup - Pro Style */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 2000;
             opacity: 0;
             visibility: hidden;
             transition: 0.3s ease;
@@ -215,40 +264,39 @@
         }
 
         .modal-box {
-            background: #1e293b;
-            border: 1px solid var(--glass-border);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             padding: 40px;
-            border-radius: 24px;
+            border-radius: 20px;
             width: 90%;
-            max-width: 600px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            transform: scale(0.9);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 650px;
+            transform: translateY(20px);
+            transition: 0.3s ease;
         }
 
         .modal-overlay.active .modal-box {
-            transform: scale(1);
+            transform: translateY(0);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .modal-header h2 {
-            font-weight: 600;
-            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.04em;
         }
 
         .close-modal {
-            background: rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-            border: none;
+            background: var(--bg-input);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
             width: 35px; height: 35px;
-            border-radius: 50%;
-            font-size: 16px;
+            border-radius: 8px;
             cursor: pointer;
             transition: 0.2s;
         }
@@ -256,80 +304,94 @@
         .close-modal:hover {
             background: #ef4444;
             color: white;
+            border-color: #ef4444;
         }
 
         .input-group { margin-bottom: 20px; }
         .input-group label {
             display: block;
             margin-bottom: 8px;
-            color: #94a3b8;
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .input-group input, .input-group textarea {
             width: 100%;
             padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #334155;
-            border-radius: 12px;
-            color: white;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
             font-size: 1rem;
             outline: none;
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
         .input-group input:focus, .input-group textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            border-color: var(--accent);
         }
 
         .input-group textarea {
-            height: 180px;
+            height: 200px;
             resize: vertical;
-            font-family: monospace;
+            font-family: 'Courier New', monospace; /* Code font */
+            font-size: 0.9rem;
         }
 
         .save-btn {
             width: 100%;
             padding: 16px;
             border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #6366f1, #ec4899);
+            border-radius: 8px;
+            background: var(--accent);
             color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
+            transition: 0.2s ease;
         }
 
         .save-btn:hover {
-            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
-            transform: translateY(-2px);
+            background: #2563eb;
         }
 
         /* Empty State */
         .empty-state {
             text-align: center;
             grid-column: 1 / -1;
-            padding: 80px 20px;
+            padding: 100px 20px;
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            background: var(--bg-card);
         }
-        .empty-state img {
-            width: 150px;
-            opacity: 0.5;
+        .empty-state i {
+            font-size: 50px;
+            color: var(--accent);
             margin-bottom: 20px;
-            filter: grayscale(100%) brightness(200%);
+            opacity: 0.8;
         }
-        .empty-state h2 { color: #94a3b8; font-weight: 500;}
-        .empty-state p { color: #64748b; margin-top: 10px;}
+        .empty-state h2 { color: var(--text-main); font-weight: 600;}
+        .empty-state p { color: var(--text-muted); margin-top: 10px; font-weight: 300;}
+
+        /* Responsive Improvements */
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .modal-box { padding: 25px; }
+        }
 
     </style>
 </head>
 <body>
 
     <header>
-        <h1>ToolBox Pro</h1>
-        <p>Your Personal Hub for Custom Web Tools</p>
+        <div class="brand-area">
+            <div class="brand-main">AHMD<span>RDX</span></div>
+            <div class="brand-sub">Professional Toolkit</div>
+        </div>
+        <div class="top-stats" id="toolCount">0 Tools Active</div>
     </header>
 
     <div class="container">
@@ -337,53 +399,37 @@
             </div>
     </div>
 
-    <button class="fab-btn" id="openModalBtn">
+    <button class="fab-btn" id="openModalBtn" title="Add New Tool">
         <i class="fa-solid fa-plus"></i>
     </button>
 
     <div class="modal-overlay" id="addToolModal">
         <div class="modal-box">
             <div class="modal-header">
-                <h2>Add New Tool</h2>
+                <h2>Initialize New Tool</h2>
                 <button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
             <div class="input-group">
-                <label for="toolName">Tool Name</label>
-                <input type="text" id="toolName" placeholder="e.g. Chat Editor, Background Remover..." autocomplete="off">
+                <label for="toolName">Tool Registry Name</label>
+                <input type="text" id="toolName" placeholder="e.g., Json Formatter" autocomplete="off">
             </div>
 
             <div class="input-group">
-                <label for="toolCode">HTML/CSS/JS Source Code</label>
-                <textarea id="toolCode" placeholder="Paste your complete tool code here..."></textarea>
+                <label for="toolCode">Source Code (HTML/CSS/JS)</label>
+                <textarea id="toolCode" placeholder="Paste complete standalone code here..."></textarea>
             </div>
 
-            <button class="save-btn" id="saveToolBtn">Create App Card</button>
+            <button class="save-btn" id="saveToolBtn">Deploy Tool</button>
         </div>
     </div>
 
     <script>
+        // Storage Key
+        const STORAGE_KEY = 'ahmd_rdx_pro_toolkit';
+
         // Array to store tools
-        let myTools = JSON.parse(localStorage.getItem('premiumToolsPro')) || [];
-
-        // Cool gradients for random App Card colors
-        const gradients = [
-            'linear-gradient(135deg, #6366f1, #a855f7)',
-            'linear-gradient(135deg, #ec4899, #f43f5e)',
-            'linear-gradient(135deg, #14b8a6, #0ea5e9)',
-            'linear-gradient(135deg, #f59e0b, #ef4444)',
-            'linear-gradient(135deg, #8b5cf6, #d946ef)'
-        ];
-
-        // Icons for tools
-        const icons = [
-            'fa-solid fa-wand-magic-sparkles',
-            'fa-solid fa-code',
-            'fa-solid fa-laptop-code',
-            'fa-solid fa-microchip',
-            'fa-solid fa-gear',
-            'fa-solid fa-layer-group'
-        ];
+        let myTools = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
         // DOM Elements
         const toolsGrid = document.getElementById('toolsGrid');
@@ -393,6 +439,7 @@
         const saveBtn = document.getElementById('saveToolBtn');
         const toolNameInput = document.getElementById('toolName');
         const toolCodeInput = document.getElementById('toolCode');
+        const toolCountSpan = document.getElementById('toolCount');
 
         // Modal Controls
         openBtn.addEventListener('click', () => {
@@ -411,13 +458,22 @@
             toolCodeInput.value = '';
         }
 
+        // Helper: Generate Initials from Name (e.g., "Json Formatter" -> "JF")
+        function getInitials(name) {
+            const words = name.trim().split(' ');
+            if (words.length === 1) {
+                return words[0].substring(0, 2).toUpperCase();
+            }
+            return (words[0][0] + words[1][0]).toUpperCase();
+        }
+
         // Save New Tool
         saveBtn.addEventListener('click', () => {
             const name = toolNameInput.value.trim();
             const code = toolCodeInput.value.trim();
 
             if (!name || !code) {
-                alert("Please fill in both fields!");
+                alert("Error: Name and Code are required for deployment.");
                 return;
             }
 
@@ -425,8 +481,7 @@
                 id: Date.now(),
                 name: name,
                 code: code,
-                gradient: gradients[Math.floor(Math.random() * gradients.length)],
-                icon: icons[Math.floor(Math.random() * icons.length)]
+                initials: getInitials(name)
             };
 
             myTools.push(newTool);
@@ -437,40 +492,40 @@
 
         // Delete Tool
         function deleteTool(id) {
-            if(confirm("Are you sure you want to delete this tool?")) {
+            if(confirm("Confirm: Are you sure you want to decommission this tool?")) {
                 myTools = myTools.filter(tool => tool.id !== id);
                 saveToLocalStorage();
                 renderTools();
             }
         }
 
-        // MAGIC: Launch Tool in a New Page / Tab
+        // Launch Tool in a New Page
         function launchTool(id) {
             const tool = myTools.find(t => t.id === id);
             if(tool) {
-                // Open a blank new tab
                 const newWindow = window.open("", "_blank");
-                // Write the tool's HTML code inside that new tab
                 newWindow.document.open();
-                newWindow.document.write(tool.code);
+                // Add a basic title to the new tab
+                newWindow.document.write(`<html><head><title>${tool.name} | AHMD RDX</title></head><body>${tool.code}</body></html>`);
                 newWindow.document.close();
             }
         }
 
         function saveToLocalStorage() {
-            localStorage.setItem('premiumToolsPro', JSON.stringify(myTools));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(myTools));
         }
 
         // Render UI
         function renderTools() {
             toolsGrid.innerHTML = ''; 
+            toolCountSpan.innerText = `${myTools.length} Tools Active`;
 
             if (myTools.length === 0) {
                 toolsGrid.innerHTML = `
                     <div class="empty-state">
-                        <i class="fa-solid fa-folder-open" style="font-size: 80px; color: #475569; margin-bottom: 20px;"></i>
-                        <h2>No Tools Added Yet</h2>
-                        <p>Click the + button below to create your first app card.</p>
+                        <i class="fa-solid fa-microchip"></i>
+                        <h2>Toolkit Empty</h2>
+                        <p>No professional tools registered. Click the '+' button to deploy your first tool.</p>
                     </div>
                 `;
                 return;
@@ -479,17 +534,16 @@
             myTools.forEach(tool => {
                 const card = document.createElement('div');
                 card.className = 'tool-card';
-                // Apply the random gradient saved to this tool
-                card.style.setProperty('--card-gradient', tool.gradient);
 
                 card.innerHTML = `
-                    <div class="tool-icon-wrapper">
-                        <i class="${tool.icon || 'fa-solid fa-code'}"></i>
+                    <div class="tool-meta">
+                        <div class="tool-logo">${tool.initials}</div>
+                        <h3>${tool.name}</h3>
+                        <div class="card-branding">AHMD RDX PREMIUM</div>
                     </div>
-                    <h3>${tool.name}</h3>
                     <div class="card-actions">
                         <button class="launch-btn" onclick="launchTool(${tool.id})">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Launch
+                            <i class="fa-solid fa-terminal"></i> Launch Tool
                         </button>
                         <button class="delete-btn" onclick="deleteTool(${tool.id})" title="Delete">
                             <i class="fa-solid fa-trash-can"></i>
@@ -505,3 +559,4 @@
     </script>
 </body>
 </html>
+
