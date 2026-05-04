@@ -18,7 +18,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body {
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%);
+            background-image: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+            radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%);
             background-attachment: fixed; color: var(--text-light); min-height: 100vh; overflow-x: hidden;
         }
         #login-section { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -38,7 +39,6 @@
         .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         .error-msg { color: #ef4444; font-size: 0.8rem; margin-top: 8px; min-height: 20px; }
         .success-msg { color: #10b981; font-size: 0.8rem; margin-top: 8px; }
-        
         #app-section { display: none; }
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 50; }
         .brand h1 { font-size: 1.8rem; font-weight: 700; color: white; letter-spacing: 1px; }
@@ -76,16 +76,12 @@
         .close-modal:hover { color: white; }
         .input-group textarea { height: 150px; font-family: monospace; }
         .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid white; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; }
-        .syncing-bar { position: fixed; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #8b5cf6, #ec4899, #8b5cf6); background-size: 200% 100%; animation: loadingBar 1.5s infinite; z-index: 999; display: none; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes loadingBar { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
         @media (max-width: 768px) { header { padding: 15px 20px; flex-direction: column; gap: 10px; } .thumbnail-wrapper { height: 140px; } .user-controls { justify-content: center; } }
     </style>
 </head>
 <body>
-
-    <div class="syncing-bar" id="syncingBar"></div>
 
     <section id="login-section">
         <div class="login-box">
@@ -140,21 +136,11 @@
     </section>
 
     <script type="module">
-        // =============================================
-        // 🔥 FIREBASE CONFIGURATION
-        // =============================================
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-        import { getDatabase, ref, onValue, set, push, remove } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+        // 🔥 Secure Firebase Config – imported from external file (git-ignored)
+        import firebaseConfig from './firebase-config.js';
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCanG_7v18_q4cYzOFu1RI1u_McajpVHxQ",
-            authDomain: "tool-88726.firebaseapp.com",
-            databaseURL: "https://tool-88726-default-rtdb.firebaseio.com",
-            projectId: "tool-88726",
-            storageBucket: "tool-88726.firebasestorage.app",
-            messagingSenderId: "405821279618",
-            appId: "1:405821279618:web:2609105c2ccffa4dea539b"
-        };
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+        import { getDatabase, ref, onValue, push, remove, set } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
 
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
@@ -162,9 +148,7 @@
 
         console.log('🔥 Firebase Connected!');
 
-        // =============================================
-        // 🔐 AUTHENTICATION
-        // =============================================
+        // ===================== AUTH =====================
         const VALID_CREDENTIALS = {
             admin: { username: 'ahmiirdx', password: 'ahmad786', role: 'admin', displayName: 'Ahmad RDX' },
             user: { username: 'ahmadrdx', password: 'ahmad123', role: 'user', displayName: 'Ahmiir DX' }
@@ -181,90 +165,41 @@
             { bg: 'linear-gradient(135deg, #10b981, #3b82f6)', glow: 'rgba(16, 185, 129, 0.4)' }
         ];
 
-        // =============================================
-        // 🔥 REAL-TIME SYNC
-        // =============================================
-        
+        // ===================== REALTIME SYNC =====================
         function startRealtimeSync() {
-            document.getElementById('syncingBar').style.display = 'block';
-            
             onValue(toolsRef, (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
-                    // Convert Firebase object to array
                     myTools = Object.entries(data).map(([firebaseId, tool]) => ({
                         ...tool,
-                        firebaseId: firebaseId
+                        firebaseId
                     }));
-                    console.log('☁️ Synced from cloud:', myTools.length, 'tools');
                 } else {
                     myTools = [];
-                    console.log('☁️ Cloud empty');
                 }
                 renderTools();
-                document.getElementById('syncingBar').style.display = 'none';
-                updateConnectionStatus(true);
+                document.getElementById('connectionStatus').innerHTML = '🟢 Connected';
             }, (error) => {
-                console.error('❌ Sync error:', error);
-                document.getElementById('syncingBar').style.display = 'none';
-                updateConnectionStatus(false);
+                console.error('Sync error:', error);
+                document.getElementById('connectionStatus').innerHTML = '🔴 Offline';
             });
         }
 
         async function addToolToCloud(tool) {
-            try {
-                document.getElementById('syncingBar').style.display = 'block';
-                const newToolRef = push(toolsRef);
-                await set(newToolRef, {
-                    name: tool.name,
-                    code: tool.code,
-                    aura: tool.aura,
-                    addedBy: tool.addedBy,
-                    addedAt: tool.addedAt
-                });
-                console.log('✅ Tool added to cloud');
-                document.getElementById('syncingBar').style.display = 'none';
-            } catch (error) {
-                console.error('❌ Add error:', error);
-                document.getElementById('syncingBar').style.display = 'none';
-                alert('Failed to save! Check internet connection.');
-            }
+            const newRef = push(toolsRef);
+            await set(newRef, tool);
         }
 
         async function deleteToolFromCloud(firebaseId) {
-            try {
-                document.getElementById('syncingBar').style.display = 'block';
-                const toolRef = ref(database, `tools/${firebaseId}`);
-                await remove(toolRef);
-                console.log('🗑️ Tool deleted from cloud');
-                document.getElementById('syncingBar').style.display = 'none';
-            } catch (error) {
-                console.error('❌ Delete error:', error);
-                document.getElementById('syncingBar').style.display = 'none';
-            }
+            const itemRef = ref(database, `tools/${firebaseId}`);
+            await remove(itemRef);
         }
 
-        function updateConnectionStatus(connected) {
-            const status = document.getElementById('connectionStatus');
-            if (connected) {
-                status.innerHTML = '🟢 Connected';
-                status.className = 'badge online-badge';
-            } else {
-                status.innerHTML = '🔴 Offline';
-                status.className = 'badge';
-                status.style.color = '#ef4444';
-            }
-        }
-
-        // =============================================
-        // 🔐 LOGIN
-        // =============================================
-        
+        // ===================== LOGIN =====================
         window.handleLogin = function() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
             const errorMsg = document.getElementById('errorMsg');
-            const successMsg = document.getElementById('successMsg');
 
             if (!username || !password) {
                 errorMsg.textContent = '❌ Username aur password dono likho!';
@@ -275,7 +210,7 @@
             let userRole = null;
             let displayName = '';
 
-            for (let [key, cred] of Object.entries(VALID_CREDENTIALS)) {
+            for (let cred of Object.values(VALID_CREDENTIALS)) {
                 if (cred.username === username && cred.password === password) {
                     authenticated = true;
                     userRole = cred.role;
@@ -285,27 +220,20 @@
             }
 
             if (authenticated) {
-                successMsg.textContent = '☁️ Connecting to Firebase...';
                 currentUserRole = userRole;
                 currentUsername = username;
-                
-                setTimeout(() => {
-                    document.getElementById('login-section').style.display = 'none';
-                    document.getElementById('app-section').style.display = 'block';
-                    document.getElementById('userRoleBadge').innerText = userRole === 'admin' ? '🛡️ Admin' : '👤 User';
-                    document.getElementById('userNameDisplay').innerText = '👋 ' + displayName;
-                    document.getElementById('openModalBtn').style.display = userRole === 'admin' ? 'flex' : 'none';
-                    
-                    document.getElementById('username').value = '';
-                    document.getElementById('password').value = '';
-                    successMsg.textContent = '';
-                    
-                    startRealtimeSync();
-                }, 500);
+
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('app-section').style.display = 'block';
+                document.getElementById('userRoleBadge').innerText = userRole === 'admin' ? '🛡️ Admin' : '👤 User';
+                document.getElementById('userNameDisplay').innerText = '👋 ' + displayName;
+                document.getElementById('openModalBtn').style.display = userRole === 'admin' ? 'flex' : 'none';
+
+                startRealtimeSync();
             } else {
-                errorMsg.textContent = '❌ Galat username ya password!';
+                errorMsg.textContent = '❌ Invalid credentials!';
                 document.querySelector('.login-box').style.animation = 'shake 0.5s';
-                setTimeout(() => { document.querySelector('.login-box').style.animation = ''; }, 500);
+                setTimeout(() => document.querySelector('.login-box').style.animation = '', 500);
             }
         };
 
@@ -316,70 +244,60 @@
             document.getElementById('app-section').style.display = 'none';
         };
 
-        // Enter key support
-        document.addEventListener('keypress', function(e) {
+        document.addEventListener('keypress', e => {
             if (e.key === 'Enter' && document.getElementById('login-section').style.display !== 'none') {
                 window.handleLogin();
             }
         });
 
-        // =============================================
-        // 🛠️ TOOL MANAGEMENT
-        // =============================================
-        
+        // ===================== MODAL & TOOLS =====================
         document.getElementById('openModalBtn').addEventListener('click', () => {
             document.getElementById('addToolModal').classList.add('active');
         });
         document.getElementById('closeModalBtn').addEventListener('click', () => {
             document.getElementById('addToolModal').classList.remove('active');
         });
-        
+
         document.getElementById('saveToolBtn').addEventListener('click', async () => {
             const name = document.getElementById('toolName').value.trim();
             const code = document.getElementById('toolCode').value.trim();
-            
-            if (!name || !code) return alert("Please fill all fields!");
+            if (!name || !code) return alert("Fill all fields!");
 
             const randomAura = auraColors[Math.floor(Math.random() * auraColors.length)];
-            
             const newTool = {
-                name: name,
-                code: code,
+                name, code,
                 aura: randomAura,
                 addedBy: currentUsername,
                 addedAt: new Date().toISOString()
             };
 
             await addToolToCloud(newTool);
-            
             document.getElementById('addToolModal').classList.remove('active');
             document.getElementById('toolName').value = '';
             document.getElementById('toolCode').value = '';
         });
 
         window.deleteTool = async function(firebaseId) {
-            if(confirm("Delete this tool from Cloud? This will sync to ALL devices.")) {
+            if (confirm("Delete this tool from Cloud?")) {
                 await deleteToolFromCloud(firebaseId);
             }
         };
 
         window.launchTool = function(firebaseId) {
             const tool = myTools.find(t => t.firebaseId === firebaseId);
-            if(tool) {
-                const newWindow = window.open("", "_blank");
-                newWindow.document.open();
-                newWindow.document.write(`<!DOCTYPE html><html><head><title>${tool.name} | AHMAD RDX</title></head><body>${tool.code}</body></html>`);
-                newWindow.document.close();
+            if (tool) {
+                const win = window.open("", "_blank");
+                win.document.open();
+                win.document.write(`<!DOCTYPE html><html><head><title>${tool.name}</title></head><body>${tool.code}</body></html>`);
+                win.document.close();
             }
         };
 
         function renderTools() {
             const grid = document.getElementById('toolsGrid');
             grid.innerHTML = '';
-
             if (myTools.length === 0) {
-                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:#94a3b8; margin-top:50px;">
-                    📦 Cloud empty. <b style="color:#a78bfa;">+</b> button se Admin tools add kare.</p>`;
+                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:#94a3b8; margin-top:50px;">📦 Cloud empty. Admin add karo.</p>`;
                 return;
             }
 
@@ -388,8 +306,8 @@
                 card.className = 'tool-card';
                 card.style.setProperty('--card-aura', tool.aura?.bg || auraColors[0].bg);
                 card.style.setProperty('--card-aura-glow', tool.aura?.glow || auraColors[0].glow);
-                
-                const deleteBtnDisplay = currentUserRole === 'admin' ? 'block' : 'none';
+
+                const delDisplay = currentUserRole === 'admin' ? 'block' : 'none';
 
                 card.innerHTML = `
                     <div class="thumbnail-wrapper">
@@ -402,23 +320,17 @@
                         <h3>${escapeHTML(tool.name)}</h3>
                         <div class="branding-tag">BY <span>AHMAD RDX</span> ${tool.addedBy ? '• ' + tool.addedBy : ''}</div>
                         <div class="actions">
-                            <button class="launch-btn" onclick="launchTool('${tool.firebaseId}')">
-                                <i class="fa-solid fa-rocket"></i> Launch
-                            </button>
-                            <button class="delete-btn" style="display: ${deleteBtnDisplay};" onclick="deleteTool('${tool.firebaseId}')">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                            <button class="launch-btn" onclick="launchTool('${tool.firebaseId}')"><i class="fa-solid fa-rocket"></i> Launch</button>
+                            <button class="delete-btn" style="display:${delDisplay};" onclick="deleteTool('${tool.firebaseId}')"><i class="fa-solid fa-trash"></i></button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
                 grid.appendChild(card);
             });
         }
 
         function escapeHTML(str) {
-            if (!str) return '';
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
-    </script>
+            </script>
 </body>
 </html>
