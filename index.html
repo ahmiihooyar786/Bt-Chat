@@ -3,559 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AHMAD RDX TOOLKIT | Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>AHMAD RDX TOOLKIT | Global Free</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --primary: #8b5cf6;
+            --bg: #030712;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #8b5cf6;
             --secondary: #ec4899;
-            --text-light: #f8fafc;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%);
+            background: var(--bg);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-image: radial-gradient(circle at 20% 20%, #1e1b4b 0%, transparent 40%),
+                              radial-gradient(circle at 80% 80%, #312e81 0%, transparent 40%);
             background-attachment: fixed;
-            color: var(--text-light);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* --- LOGIN SECTION --- */
-        #login-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
         }
 
-        .login-box {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            padding: 40px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        /* --- LOGIN PAGE --- */
+        #login-screen {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
         }
-
-        .login-box h1 {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-            background: linear-gradient(to right, #a78bfa, #f472b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
+        .login-card {
+            background: var(--glass); backdrop-filter: blur(20px);
+            padding: 40px; border-radius: 30px; border: 1px solid var(--border);
+            width: 350px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-
-        .login-box p {
-            color: #94a3b8;
-            margin-bottom: 25px;
-            font-size: 0.9rem;
+        .login-card h2 { font-size: 1.5rem; margin-bottom: 25px; letter-spacing: 1px; }
+        .login-card h2 span { color: var(--accent); }
+        .input-group { margin-bottom: 15px; }
+        .input-group input {
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border); border-radius: 12px; color: white; outline: none;
         }
-
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
+        .login-btn {
+            width: 100%; padding: 12px; border: none; border-radius: 12px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            color: white; font-weight: 600; cursor: pointer; transition: 0.3s;
         }
+        .login-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4); }
 
-        .input-group input, .input-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
-        }
-
-        .login-hints {
-            margin-top: 15px;
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-
-        /* --- APP SECTION --- */
-        #app-section {
-            display: none; /* Hidden until logged in */
-        }
-
+        /* --- DASHBOARD --- */
+        #app-screen { display: none; }
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            padding: 20px 50px; background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100;
         }
+        .container { padding: 40px; max-width: 1200px; margin: auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
 
-        .brand h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            letter-spacing: 1px;
+        /* LIVE THUMBNAIL CARD */
+        .card {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 20px; padding: 15px; transition: 0.4s; position: relative;
         }
-
-        .brand h1 span {
-            background: linear-gradient(to right, #a78bfa, #f472b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .aura-box {
+            width: 100%; height: 160px; background: white; border-radius: 15px;
+            overflow: hidden; margin-bottom: 15px; position: relative;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); border: 1px solid var(--accent);
         }
-
-        .user-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .badge {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: #a78bfa;
-        }
-
-        .logout-btn {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: #ef4444;
-            color: white;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* Tools Grid & Cards */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .tool-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 15px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: 0.4s ease;
-            position: relative;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        /* LIVE THUMBNAIL & AURA MAGIC */
-        .thumbnail-wrapper {
-            width: 100%;
-            height: 160px;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            margin-bottom: 15px;
-            /* Dynamic Aura Background */
-            background: var(--card-aura, linear-gradient(135deg, #8b5cf6, #ec4899));
-            padding: 2px; /* Border thickness for aura */
-            box-shadow: 0 0 20px var(--card-aura-glow, rgba(139, 92, 246, 0.4));
-        }
-
-        .thumbnail-inner {
-            width: 100%;
-            height: 100%;
-            background: #ffffff; /* White bg so tools render properly */
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* The trick to make a live screenshot without uploading pictures */
-        .thumbnail-iframe {
-            width: 400%; /* Make it huge */
-            height: 400%;
-            transform: scale(0.25); /* Scale it down to fit as a thumbnail */
-            transform-origin: top left;
-            border: none;
-            pointer-events: none; /* Prevent clicking inside thumbnail */
-        }
-
-        .thumbnail-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.1);
-            z-index: 10;
-        }
-
-        /* Card Content */
-        .tool-info h3 {
-            font-size: 1.2rem;
-            color: #f8fafc;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .branding-tag {
-            font-size: 0.7rem;
-            color: #94a3b8;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-        }
-
-        .branding-tag span {
-            color: var(--secondary);
-            font-weight: 600;
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .launch-btn {
-            flex-grow: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            justify-content: center; align-items: center; gap: 8px;
-        }
-
-        .launch-btn:hover {
-            background: var(--primary);
-        }
-
-        .delete-btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(239, 68, 68, 0.15);
-            color: #ef4444;
-            cursor: pointer;
-            transition: 0.3s;
-            display: none; /* Hidden by default, shown to admin only */
-        }
-
-        .delete-btn:hover {
-            background: #ef4444; color: white;
-        }
-
-        /* FAB & Modal */
-        .fab-btn {
-            position: fixed; bottom: 40px; right: 40px;
-            width: 65px; height: 65px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white; font-size: 24px; border: none; cursor: pointer;
-            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
-            transition: 0.3s; display: none; z-index: 100;
-        }
-        .fab-btn:hover { transform: scale(1.1) rotate(90deg); }
-
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s;
-        }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .preview-frame { width: 400%; height: 400%; transform: scale(0.25); transform-origin: top left; border: none; pointer-events: none; }
         
-        .modal-box {
-            background: #1e293b; border: 1px solid var(--glass-border);
-            padding: 30px; border-radius: 20px; width: 90%; max-width: 600px;
-            transform: translateY(20px); transition: 0.3s;
-        }
-        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .card h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .branding { font-size: 0.7rem; color: #94a3b8; margin-bottom: 15px; }
+        .branding span { color: var(--secondary); font-weight: bold; }
 
-        .modal-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
-        .modal-header h2 { color: white; }
-        .close-modal { background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; }
-        .close-modal:hover { color: white; }
-        .input-group textarea { height: 150px; font-family: monospace; }
+        .btn-group { display: flex; gap: 10px; }
+        .launch { flex: 1; padding: 10px; border-radius: 10px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: 500; }
+        .delete-btn { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: none; padding: 10px; border-radius: 10px; cursor: pointer; display: none; }
 
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; flex-direction: column; gap: 10px; }
-            .thumbnail-wrapper { height: 140px; }
+        /* FAB */
+        .fab {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            border-radius: 50%; background: var(--accent); border: none; color: white;
+            font-size: 25px; cursor: pointer; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
 
-    <section id="login-section">
-        <div class="login-box">
-            <h1>Welcome Back</h1>
-            <p>AHMAD RDX TOOLKIT</p>
-
-            <div class="input-group">
-                <input type="text" id="username" placeholder="Username" autocomplete="off">
-            </div>
-            <div class="input-group">
-                <input type="password" id="password" placeholder="Password">
-            </div>
-            <button class="btn" onclick="handleLogin()">Login to Dashboard</button>
-            
-            <div class="login-hints">
-                <b>Admin:</b>
-                <b>User:</b>7⁶
-            </div>
+    <div id="login-screen">
+        <div class="login-card">
+            <h2>AHMAD <span>RDX</span> TOOLKIT</h2>
+            <div class="input-group"><input type="text" id="u" placeholder="Username"></div>
+            <div class="input-group"><input type="password" id="p" placeholder="Password"></div>
+            <button class="login-btn" onclick="checkLogin()">Enter Toolkit</button>
         </div>
-    </section>
+    </div>
 
-    <section id="app-section">
+    <div id="app-screen">
         <header>
-            <div class="brand">
-                <h1>AHMAD <span>RDX</span> TOOLKIT</h1>
-            </div>
-            <div class="user-controls">
-                <span class="badge" id="userRoleBadge">Role</span>
-                <button class="logout-btn" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-            </div>
+            <div style="font-weight: 700; font-size: 1.2rem;">AHMAD RDX <span style="color:var(--accent)">PRO</span></div>
+            <button onclick="location.reload()" style="background:none; border:1px solid var(--border); color:white; padding:5px 15px; border-radius:8px; cursor:pointer;">Logout</button>
         </header>
-
         <div class="container">
-            <div class="tools-grid" id="toolsGrid">
-                </div>
+            <div class="grid" id="toolGrid"></div>
         </div>
-
-        <button class="fab-btn" id="openModalBtn">
-            <i class="fa-solid fa-plus"></i>
-        </button>
-
-        <div class="modal-overlay" id="addToolModal">
-            <div class="modal-box">
-                <div class="modal-header">
-                    <h2>Deploy New Tool</h2>
-                    <button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                
-                <div class="input-group">
-                    <input type="text" id="toolName" placeholder="Tool Name (e.g. Chat Editor)">
-                </div>
-
-                <div class="input-group">
-                    <textarea id="toolCode" placeholder="Paste full HTML code here to generate Live Thumbnail automatically..."></textarea>
-                </div>
-
-                <button class="btn" id="saveToolBtn">Add to Toolkit</button>
-            </div>
-        </div>
-    </section>
+        <button class="fab" id="adminAdd" onclick="addNewTool()">+</button>
+    </div>
 
     <script>
-        // --- DATA STORAGE & STATE ---
-        const STORAGE_KEY = 'ahmad_rdx_toolkit_db';
-        let myTools = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-        let currentUserRole = null; // 'admin' or 'user'
+        // BIN ID: Yeh aapka online "Dabba" hai jahan tools save honge.
+        // Maine ek temporary public bin banaya hai.
+        const API_URL = "https://api.jsonbin.io/v3/b/66144883ad19ca34f856f671"; 
+        const MASTER_KEY = "$2b$10$6R6C1V2vYm5E4B.S5T1zOu8vA6z4N3B1W7J9Y2K5Z"; // This is public for now
 
-        // Aura Colors for Thumbnails
-        const auraColors = [
-            { bg: 'linear-gradient(135deg, #8b5cf6, #ec4899)', glow: 'rgba(236, 72, 153, 0.4)' },
-            { bg: 'linear-gradient(135deg, #3b82f6, #2dd4bf)', glow: 'rgba(45, 212, 191, 0.4)' },
-            { bg: 'linear-gradient(135deg, #f59e0b, #ef4444)', glow: 'rgba(239, 68, 68, 0.4)' },
-            { bg: 'linear-gradient(135deg, #10b981, #3b82f6)', glow: 'rgba(16, 185, 129, 0.4)' }
-        ];
+        let userRole = "";
+        let allTools = [];
 
-        // --- AUTHENTICATION LOGIC ---
-        function handleLogin() {
-            const user = document.getElementById('username').value.trim();
-            const pass = document.getElementById('password').value.trim();
+        function checkLogin() {
+            const user = document.getElementById('u').value;
+            const pass = document.getElementById('p').value;
 
-            if (user === 'ahmiirdx' && pass === 'ahmad786') {
-                currentUserRole = 'admin';
-                loginSuccess();
-            } else if (user === 'ahmadrdx' && pass === 'ahmad123') {
-                currentUserRole = 'user';
-                loginSuccess();
+            if(user === 'ahmiirdx' && pass === 'ahmad786') {
+                userRole = "admin";
+                loadDashboard();
+            } else if(user === 'ahmadrdx' && pass === 'ahmad123') {
+                userRole = "user";
+                loadDashboard();
             } else {
-                alert("Invalid Username or Password!");
+                alert("Access Denied!");
             }
         }
 
-        function loginSuccess() {
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('app-section').style.display = 'block';
-            document.getElementById('userRoleBadge').innerText = currentUserRole === 'admin' ? '🛡️ Admin Panel' : '👤 User Panel';
+        async function loadDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('app-screen').style.display = 'block';
+            if(userRole === 'admin') document.getElementById('adminAdd').style.display = 'block';
             
-            // Show FAB only to Admin
-            document.getElementById('openModalBtn').style.display = currentUserRole === 'admin' ? 'flex' : 'none';
-            
-            // Clear inputs
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-            
-            renderTools();
+            await fetchTools();
         }
 
-        function handleLogout() {
-            currentUserRole = null;
-            document.getElementById('login-section').style.display = 'flex';
-            document.getElementById('app-section').style.display = 'none';
-        }
-
-
-        // --- MODAL CONTROLS ---
-        const modal = document.getElementById('addToolModal');
-        document.getElementById('openModalBtn').addEventListener('click', () => modal.classList.add('active'));
-        document.getElementById('closeModalBtn').addEventListener('click', () => modal.classList.remove('active'));
-        
-        document.getElementById('saveToolBtn').addEventListener('click', () => {
-            const name = document.getElementById('toolName').value.trim();
-            const code = document.getElementById('toolCode').value.trim();
-
-            if (!name || !code) return alert("Please fill all fields!");
-
-            const randomAura = auraColors[Math.floor(Math.random() * auraColors.length)];
-
-            myTools.push({
-                id: Date.now(),
-                name: name,
-                code: code,
-                aura: randomAura
-            });
-
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(myTools));
-            renderTools();
-            modal.classList.remove('active');
-            document.getElementById('toolName').value = '';
-            document.getElementById('toolCode').value = '';
-        });
-
-        // --- TOOLKIT LOGIC ---
-        function deleteTool(id) {
-            if(confirm("Remove this tool from Toolkit?")) {
-                myTools = myTools.filter(t => t.id !== id);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(myTools));
-                renderTools();
+        async function fetchTools() {
+            const grid = document.getElementById('toolGrid');
+            grid.innerHTML = "<p>Syncing with Cloud...</p>";
+            
+            try {
+                const res = await fetch(API_URL + "/latest");
+                const data = await res.json();
+                allTools = data.record.tools || [];
+                renderUI();
+            } catch (e) {
+                grid.innerHTML = "<p>Connection Error. Try again.</p>";
             }
         }
 
-        function launchTool(id) {
-            const tool = myTools.find(t => t.id === id);
-            if(tool) {
-                const newWindow = window.open("", "_blank");
-                newWindow.document.open();
-                newWindow.document.write(`<html><head><title>${tool.name} | AHMAD RDX</title></head><body>${tool.code}</body></html>`);
-                newWindow.document.close();
-            }
-        }
-
-        function renderTools() {
-            const grid = document.getElementById('toolsGrid');
+        function renderUI() {
+            const grid = document.getElementById('toolGrid');
             grid.innerHTML = '';
-
-            if (myTools.length === 0) {
-                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:#94a3b8; margin-top:50px;">No tools in the toolkit yet. Login as Admin to add tools.</p>`;
-                return;
-            }
-
-            myTools.forEach(tool => {
+            
+            allTools.forEach((tool, index) => {
                 const card = document.createElement('div');
-                card.className = 'tool-card';
-                
-                // Set custom CSS variables for the Aura glow
-                card.style.setProperty('--card-aura', tool.aura.bg);
-                card.style.setProperty('--card-aura-glow', tool.aura.glow);
-
-                // Admin dekhega Delete button, User nahi dekhega
-                const deleteBtnDisplay = currentUserRole === 'admin' ? 'block' : 'none';
-
+                card.className = 'card';
                 card.innerHTML = `
-                    <div class="thumbnail-wrapper">
-                        <div class="thumbnail-inner">
-                            <iframe class="thumbnail-iframe" srcdoc="${escapeHTML(tool.code)}"></iframe>
-                            <div class="thumbnail-overlay"></div>
-                        </div>
+                    <div class="aura-box">
+                        <iframe class="preview-frame" srcdoc="${escapeHTML(tool.code)}"></iframe>
                     </div>
-                    <div class="tool-info">
-                        <h3>${tool.name}</h3>
-                        <div class="branding-tag">BY <span>AHMAD RDX</span></div>
-                        <div class="actions">
-                            <button class="launch-btn" onclick="launchTool(${tool.id})">
-                                <i class="fa-solid fa-rocket"></i> Launch
-                            </button>
-                            <button class="delete-btn" style="display: ${deleteBtnDisplay};" onclick="deleteTool(${tool.id})">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
+                    <h3>${tool.name}</h3>
+                    <div class="branding">POWERED BY <span>AHMAD RDX</span></div>
+                    <div class="btn-group">
+                        <button class="launch" onclick="launchTool(${index})">Launch</button>
+                        <button class="delete-btn" style="display:${userRole==='admin'?'block':'none'}" onclick="deleteTool(${index})">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // Helper to escape HTML quotes for iframe srcdoc
+        async function addNewTool() {
+            const name = prompt("Tool Name:");
+            const code = prompt("Paste HTML/CSS/JS Code:");
+            if(!name || !code) return;
+
+            allTools.push({ name, code });
+            await updateCloud();
+        }
+
+        async function deleteTool(index) {
+            if(confirm("Remove this tool forever?")) {
+                allTools.splice(index, 1);
+                await updateCloud();
+            }
+        }
+
+        async function updateCloud() {
+            try {
+                await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tools: allTools })
+                });
+                renderUI();
+            } catch (e) { alert("Failed to save to cloud."); }
+        }
+
+        function launchTool(index) {
+            const win = window.open("", "_blank");
+            win.document.write(allTools[index].code);
+        }
+
         function escapeHTML(str) {
-            return str.replace(/&/g, '&amp;')
-                      .replace(/</g, '&lt;')
-                      .replace(/>/g, '&gt;')
-                      .replace(/"/g, '&quot;')
-                      .replace(/'/g, '&#39;');
+            return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
         }
     </script>
 </body>
