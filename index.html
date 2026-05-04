@@ -3,404 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AHMAD RDX TOOLKIT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>AHMAD RDX TOOLKIT | Global Sync Fixed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --primary: #8b5cf6;
+            --bg: #030712;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #8b5cf6;
             --secondary: #ec4899;
-            --text-light: #f8fafc;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
         body {
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%);
-            background-attachment: fixed; color: var(--text-light); min-height: 100vh; overflow-x: hidden;
+            background: var(--bg);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-image: radial-gradient(circle at 20% 20%, #1e1b4b 0%, transparent 40%),
+                              radial-gradient(circle at 80% 80%, #312e81 0%, transparent 40%);
+            background-attachment: fixed;
+            min-height: 100vh;
         }
-        #login-section { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .login-box {
-            background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border);
-            padding: 40px; border-radius: 20px; width: 90%; max-width: 420px; text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+
+        /* --- LOGIN PAGE --- */
+        #login-screen {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
         }
-        .login-box h1 { font-size: 1.6rem; margin-bottom: 5px; background: linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
-        .login-box .subtitle { color: #64748b; margin-bottom: 30px; font-size: 0.85rem; }
-        .input-group { margin-bottom: 18px; text-align: left; }
-        .input-group label { display: block; color: #94a3b8; font-size: 0.8rem; margin-bottom: 5px; font-weight: 500; }
-        .input-group input, .input-group textarea { width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border); border-radius: 10px; color: white; font-size: 1rem; outline: none; transition: 0.3s; }
-        .input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2); }
-        .btn { width: 100%; padding: 12px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; border-radius: 10px; color: white; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3); }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4); }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .error-msg { color: #ef4444; font-size: 0.8rem; margin-top: 8px; min-height: 20px; }
-        .success-msg { color: #10b981; font-size: 0.8rem; margin-top: 8px; }
+        .login-card {
+            background: var(--glass); backdrop-filter: blur(25px);
+            padding: 40px; border-radius: 30px; border: 1px solid var(--border);
+            width: 350px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .login-card h2 { font-size: 1.5rem; margin-bottom: 25px; letter-spacing: 1px; }
+        .login-card h2 span { color: var(--accent); }
+        .input-group { margin-bottom: 15px; }
+        .input-group input {
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border); border-radius: 12px; color: white; outline: none;
+        }
+        .login-btn {
+            width: 100%; padding: 12px; border: none; border-radius: 12px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            color: white; font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+        .login-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4); }
+
+        /* --- DASHBOARD --- */
+        #app-screen { display: none; }
+        header {
+            padding: 20px 50px; background: rgba(3, 7, 18, 0.9);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100;
+        }
+        .container { padding: 40px; max-width: 1200px; margin: auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+
+        /* TOOL CARD WITH LIVE THUMBNAIL */
+        .card {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 20px; padding: 15px; transition: 0.4s; position: relative;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
+        .aura-box {
+            width: 100%; height: 160px; background: white; border-radius: 15px;
+            overflow: hidden; margin-bottom: 15px; position: relative;
+            border: 1px solid var(--accent);
+        }
+        .preview-frame { width: 400%; height: 400%; transform: scale(0.25); transform-origin: top left; border: none; pointer-events: none; }
         
-        /* Emergency Access */
-        .emergency-hint {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 10px;
-            display: none;
+        .card h3 { font-size: 1.1rem; margin-bottom: 5px; color: #fff; }
+        .branding { font-size: 0.7rem; color: #94a3b8; margin-bottom: 15px; letter-spacing: 1px; }
+        .branding span { color: var(--secondary); font-weight: bold; }
+
+        .btn-group { display: flex; gap: 10px; }
+        .launch { flex: 1; padding: 10px; border-radius: 10px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: 500; transition: 0.3s; }
+        .launch:hover { background: var(--secondary); }
+        .delete-btn { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: none; padding: 10px 15px; border-radius: 10px; cursor: pointer; display: none; }
+
+        /* FAB */
+        .fab {
+            position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px;
+            border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--secondary)); border: none; color: white;
+            font-size: 28px; cursor: pointer; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            z-index: 200;
         }
-        .emergency-hint.show { display: block; }
-        .emergency-hint p { color: #fca5a5; font-size: 0.75rem; margin: 3px 0; }
-        .emergency-hint b { color: #f87171; }
-        
-        .secret-trigger {
-            color: #1e293b;
-            font-size: 0.6rem;
-            margin-top: 15px;
-            opacity: 0.3;
-            cursor: pointer;
-            user-select: none;
-            transition: 0.3s;
-        }
-        .secret-trigger:hover { opacity: 0.7; color: #64748b; }
-        
-        #app-section { display: none; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 50; }
-        .brand h1 { font-size: 1.8rem; font-weight: 700; color: white; letter-spacing: 1px; }
-        .brand h1 span { background: linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .user-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .badge { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; color: #a78bfa; }
-        .logout-btn { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 0.85rem; }
-        .logout-btn:hover { background: #ef4444; color: white; }
-        .container { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-        .tool-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); transition: 0.4s ease; position: relative; }
-        .tool-card:hover { transform: translateY(-8px); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); }
-        .thumbnail-wrapper { width: 100%; height: 160px; border-radius: 12px; overflow: hidden; position: relative; margin-bottom: 15px; background: var(--card-aura, linear-gradient(135deg, #8b5cf6, #ec4899)); padding: 2px; box-shadow: 0 0 20px var(--card-aura-glow, rgba(139, 92, 246, 0.4)); }
-        .thumbnail-inner { width: 100%; height: 100%; background: #ffffff; border-radius: 10px; position: relative; overflow: hidden; }
-        .thumbnail-iframe { width: 400%; height: 400%; transform: scale(0.25); transform-origin: top left; border: none; pointer-events: none; }
-        .thumbnail-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.05); z-index: 10; }
-        .tool-info h3 { font-size: 1.2rem; color: #f8fafc; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .branding-tag { font-size: 0.7rem; color: #94a3b8; letter-spacing: 1px; margin-bottom: 15px; }
-        .branding-tag span { color: var(--secondary); font-weight: 600; }
-        .actions { display: flex; gap: 10px; }
-        .launch-btn { flex-grow: 1; padding: 10px; border: none; border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: white; font-weight: 500; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
-        .launch-btn:hover { background: var(--primary); }
-        .delete-btn { padding: 10px 15px; border: none; border-radius: 8px; background: rgba(239, 68, 68, 0.15); color: #ef4444; cursor: pointer; transition: 0.3s; display: none; }
-        .delete-btn:hover { background: #ef4444; color: white; }
-        .fab-btn { position: fixed; bottom: 40px; right: 40px; width: 65px; height: 65px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 24px; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4); transition: 0.3s; display: none; z-index: 100; }
-        .fab-btn:hover { transform: scale(1.1) rotate(90deg); }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s; }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-box { background: #1e293b; border: 1px solid var(--glass-border); padding: 30px; border-radius: 20px; width: 90%; max-width: 600px; transform: translateY(20px); transition: 0.3s; }
-        .modal-overlay.active .modal-box { transform: translateY(0); }
-        .modal-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
-        .modal-header h2 { color: white; }
-        .close-modal { background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; }
-        .close-modal:hover { color: white; }
-        .input-group textarea { height: 150px; font-family: monospace; }
-        .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid white; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
-        @media (max-width: 768px) { header { padding: 15px 20px; flex-direction: column; gap: 10px; } .thumbnail-wrapper { height: 140px; } .user-controls { justify-content: center; } }
+
+        /* LOADING SPINNER */
+        #loader { display: none; color: var(--accent); font-size: 0.9rem; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <section id="login-section">
-        <div class="login-box">
-            <h1>AHMAD RDX TOOLKIT</h1>
-            <p class="subtitle">🔐 Secure Access</p>
-            
-            <div class="input-group">
-                <label>👤 Username</label>
-                <input type="text" id="username" placeholder="Username likho..." autocomplete="off">
-            </div>
-            <div class="input-group">
-                <label>🔒 Password</label>
-                <input type="password" id="password" placeholder="Password likho...">
-            </div>
-            
-            <button class="btn" id="loginBtn" onclick="handleLogin()">
-                <i class="fa-solid fa-right-to-bracket"></i> Login
-            </button>
-            
-            <div class="error-msg" id="errorMsg"></div>
-            <div class="success-msg" id="successMsg"></div>
-            
-            <!-- Emergency Access -->
-            <div class="emergency-hint" id="emergencyHint">
-                <p>🆘 <b>Emergency Access:</b></p>
-                <p>Admin: <b>ahmadrdx</b> | <b>ahmad123</b></p>
-                <p>User: <b>ahmiirdx</b> | <b>ahmad786</b></p>
-            </div>
-            
-            <!-- Click 5 times to show emergency hint -->
-            <div class="secret-trigger" id="secretTrigger">•••</div>
+    <div id="login-screen">
+        <div class="login-card">
+            <h2>AHMAD <span>RDX</span> TOOLKIT</h2>
+            <div class="input-group"><input type="text" id="u" placeholder="Username"></div>
+            <div class="input-group"><input type="password" id="p" placeholder="Password"></div>
+            <button class="login-btn" onclick="checkLogin()">Enter Toolkit</button>
+            <div id="loader">Syncing with Cloud...</div>
         </div>
-    </section>
+    </div>
 
-    <section id="app-section">
+    <div id="app-screen">
         <header>
-            <div class="brand"><h1>AHMAD <span>RDX</span> TOOLKIT</h1></div>
-            <div class="user-controls">
-                <span class="badge" id="userRoleBadge">Role</span>
-                <span class="badge" id="userNameDisplay" style="background: rgba(139, 92, 246, 0.2); color: #c4b5fd;"></span>
-                <button class="logout-btn" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            <div style="font-weight: 700; font-size: 1.2rem;">AHMAD RDX <span style="color:var(--accent)">TOOLKIT</span></div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <span id="roleLabel" style="font-size: 0.8rem; color: #94a3b8; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 5px;"></span>
+                <button onclick="location.reload()" style="background:none; border:1px solid var(--border); color:white; padding:5px 15px; border-radius:8px; cursor:pointer;">Logout</button>
             </div>
         </header>
         <div class="container">
-            <div class="tools-grid" id="toolsGrid">
-                <p style="text-align:center; grid-column: 1/-1; color:#94a3b8; margin-top:50px;">📦 Loading tools...</p>
-            </div>
+            <div class="grid" id="toolGrid"></div>
         </div>
-        <button class="fab-btn" id="openModalBtn" title="Add New Tool"><i class="fa-solid fa-plus"></i></button>
-        <div class="modal-overlay" id="addToolModal">
-            <div class="modal-box">
-                <div class="modal-header"><h2>Add New Tool</h2><button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button></div>
-                <div class="input-group"><input type="text" id="toolName" placeholder="Tool Name"></div>
-                <div class="input-group"><textarea id="toolCode" placeholder="Paste HTML code here..."></textarea></div>
-                <button class="btn" id="saveToolBtn"><i class="fa-solid fa-save"></i> Save Tool</button>
-            </div>
-        </div>
-    </section>
+        <button class="fab" id="adminAdd" onclick="addNewTool()">+</button>
+    </div>
 
     <script>
-        // =============================================
-        // 🔐 SIMPLE AUTH - 100% WORKING
-        // =============================================
-        
-        // Plain text credentials for reliability
-        const VALID_CREDENTIALS = {
-            admin: { username: 'ahmadrdx', password: 'ahmad123', role: 'admin', displayName: 'Ahmad RDX' },
-            user: { username: 'ahmiirdx', password: 'ahmad786', role: 'user', displayName: 'Ahmiir DX' }
-        };
+        // API CONFIG (Dabba ID Jahan Data Save Hoga)
+        const BIN_ID = "66144883ad19ca34f856f671"; 
+        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+        const MASTER_KEY = "$2b$10$6R6C1V2vYm5E4B.S5T1zOu8vA6z4N3B1W7J9Y2K5Z"; 
 
-        let myTools = [];
-        let currentUserRole = null;
-        let currentUsername = null;
+        let userRole = "";
+        let allTools = [];
 
-        const STORAGE_KEY = 'ahmad_rdx_toolkit_db';
-        const auraColors = [
-            { bg: 'linear-gradient(135deg, #8b5cf6, #ec4899)', glow: 'rgba(236, 72, 153, 0.4)' },
-            { bg: 'linear-gradient(135deg, #3b82f6, #2dd4bf)', glow: 'rgba(45, 212, 191, 0.4)' },
-            { bg: 'linear-gradient(135deg, #f59e0b, #ef4444)', glow: 'rgba(239, 68, 68, 0.4)' },
-            { bg: 'linear-gradient(135deg, #10b981, #3b82f6)', glow: 'rgba(16, 185, 129, 0.4)' }
-        ];
+        function checkLogin() {
+            const user = document.getElementById('u').value.trim();
+            const pass = document.getElementById('p').value.trim();
 
-        // =============================================
-        // 🆘 EMERGENCY HINT SYSTEM
-        // =============================================
-        let clickCount = 0;
-        document.getElementById('secretTrigger').addEventListener('click', function() {
-            clickCount++;
-            if (clickCount >= 5) {
-                document.getElementById('emergencyHint').classList.add('show');
-                clickCount = 0;
-                setTimeout(() => {
-                    document.getElementById('emergencyHint').classList.remove('show');
-                }, 10000); // 10 seconds ke liye show hoga
-            }
-        });
-
-        // =============================================
-        // 🔐 LOGIN SYSTEM (SIMPLE & RELIABLE)
-        // =============================================
-        
-        function handleLogin() {
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
-            const successMsg = document.getElementById('successMsg');
-
-            console.log('🔑 Login attempt:', username); // Debug log
-
-            if (!username || !password) {
-                errorMsg.textContent = '❌ Username aur password dono likho!';
-                successMsg.textContent = '';
-                return;
-            }
-
-            let authenticated = false;
-            let userRole = null;
-            let displayName = '';
-
-            // Check credentials
-            for (let [key, cred] of Object.entries(VALID_CREDENTIALS)) {
-                console.log('Checking:', cred.username, 'vs', username); // Debug
-                if (cred.username === username && cred.password === password) {
-                    authenticated = true;
-                    userRole = cred.role;
-                    displayName = cred.displayName;
-                    console.log('✅ Match found:', key); // Debug
-                    break;
-                }
-            }
-
-            if (authenticated) {
-                errorMsg.textContent = '';
-                successMsg.textContent = '✅ Login successful!';
-                
-                // Load data
-                loadLocalData();
-                currentUserRole = userRole;
-                currentUsername = username;
-                
-                // Switch to app
-                setTimeout(() => {
-                    document.getElementById('login-section').style.display = 'none';
-                    document.getElementById('app-section').style.display = 'block';
-                    document.getElementById('userRoleBadge').innerText = userRole === 'admin' ? '🛡️ Admin' : '👤 User';
-                    document.getElementById('userNameDisplay').innerText = '👋 ' + displayName;
-                    document.getElementById('openModalBtn').style.display = userRole === 'admin' ? 'flex' : 'none';
-                    
-                    document.getElementById('username').value = '';
-                    document.getElementById('password').value = '';
-                    successMsg.textContent = '';
-                    
-                    renderTools();
-                }, 300);
-                
+            // Your Custom Credentials
+            if(user === 'ahmiirdx' && pass === 'ahmad786') {
+                userRole = "admin";
+                loadDashboard();
+            } else if(user === 'ahmadrdx' && pass === 'ahmad123') {
+                userRole = "user";
+                loadDashboard();
             } else {
-                errorMsg.textContent = '❌ Galat username ya password! 5 baar "•••" pe click karo help ke liye.';
-                successMsg.textContent = '';
-                document.querySelector('.login-box').style.animation = 'shake 0.5s';
-                setTimeout(() => { document.querySelector('.login-box').style.animation = ''; }, 500);
+                alert("❌ Wrong Access Details!");
             }
         }
 
-        function handleLogout() {
-            currentUserRole = null;
-            currentUsername = null;
-            document.getElementById('login-section').style.display = 'flex';
-            document.getElementById('app-section').style.display = 'none';
-            document.getElementById('errorMsg').textContent = '';
-            document.getElementById('successMsg').textContent = '';
-        }
-
-        // Enter key se login
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && document.getElementById('login-section').style.display !== 'none') {
-                handleLogin();
-            }
-        });
-
-        // =============================================
-        // 💾 DATA STORAGE
-        // =============================================
-        
-        function loadLocalData() {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            myTools = saved ? JSON.parse(saved) : [];
-            console.log('📦 Loaded tools:', myTools.length);
-        }
-
-        function saveLocalData() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(myTools));
-            console.log('💾 Saved tools:', myTools.length);
-        }
-
-        // =============================================
-        // 🛠️ TOOL MANAGEMENT
-        // =============================================
-        
-        const modal = document.getElementById('addToolModal');
-        document.getElementById('openModalBtn').addEventListener('click', () => modal.classList.add('active'));
-        document.getElementById('closeModalBtn').addEventListener('click', () => modal.classList.remove('active'));
-        
-        document.getElementById('saveToolBtn').addEventListener('click', () => {
-            const name = document.getElementById('toolName').value.trim();
-            const code = document.getElementById('toolCode').value.trim();
+        async function loadDashboard() {
+            document.getElementById('loader').style.display = 'block';
             
-            if (!name || !code) return alert("Please fill all fields!");
-
-            const randomAura = auraColors[Math.floor(Math.random() * auraColors.length)];
+            // Sync data from cloud first
+            const success = await fetchTools();
             
-            myTools.push({
-                id: Date.now(),
-                name: name,
-                code: code,
-                aura: randomAura,
-                addedBy: currentUsername,
-                addedAt: new Date().toISOString()
-            });
-
-            saveLocalData();
-            renderTools();
-            
-            modal.classList.remove('active');
-            document.getElementById('toolName').value = '';
-            document.getElementById('toolCode').value = '';
-        });
-
-        function deleteTool(id) {
-            if(confirm("Delete this tool?")) {
-                myTools = myTools.filter(t => t.id !== id);
-                saveLocalData();
-                renderTools();
+            if(success) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('app-screen').style.display = 'block';
+                document.getElementById('roleLabel').innerText = userRole.toUpperCase() + " PANEL";
+                if(userRole === 'admin') document.getElementById('adminAdd').style.display = 'block';
+                renderUI();
+            } else {
+                alert("Cloud Sync Failed. Please check connection.");
+                document.getElementById('loader').style.display = 'none';
             }
         }
 
-        function launchTool(id) {
-            const tool = myTools.find(t => t.id === id);
-            if(tool) {
-                const newWindow = window.open("", "_blank");
-                newWindow.document.open();
-                newWindow.document.write(`<!DOCTYPE html><html><head><title>${tool.name} | AHMAD RDX</title></head><body>${tool.code}</body></html>`);
-                newWindow.document.close();
+        async function fetchTools() {
+            try {
+                // Cache buster added to URL (?t=timestamp)
+                const res = await fetch(`${API_URL}/latest?t=${Date.now()}`, {
+                    headers: { "X-Master-Key": MASTER_KEY }
+                });
+                const data = await res.json();
+                allTools = data.record.tools || [];
+                return true;
+            } catch (e) {
+                console.error(e);
+                return false;
             }
         }
 
-        function renderTools() {
-            const grid = document.getElementById('toolsGrid');
+        function renderUI() {
+            const grid = document.getElementById('toolGrid');
             grid.innerHTML = '';
-
-            if (myTools.length === 0) {
-                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:#94a3b8; margin-top:50px;">
-                    📦 No tools yet. Admin can add tools.</p>`;
-                return;
+            
+            if(allTools.length === 0) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; opacity:0.5;">No tools found in cloud.</p>`;
             }
 
-            myTools.forEach(tool => {
+            allTools.forEach((tool, index) => {
                 const card = document.createElement('div');
-                card.className = 'tool-card';
-                card.style.setProperty('--card-aura', tool.aura.bg);
-                card.style.setProperty('--card-aura-glow', tool.aura.glow);
-                
-                const deleteBtnDisplay = currentUserRole === 'admin' ? 'block' : 'none';
-
+                card.className = 'card';
                 card.innerHTML = `
-                    <div class="thumbnail-wrapper">
-                        <div class="thumbnail-inner">
-                            <iframe class="thumbnail-iframe" srcdoc="${escapeHTML(tool.code)}" sandbox="allow-scripts"></iframe>
-                            <div class="thumbnail-overlay"></div>
-                        </div>
+                    <div class="aura-box">
+                        <iframe class="preview-frame" srcdoc="${escapeHTML(tool.code)}"></iframe>
                     </div>
-                    <div class="tool-info">
-                        <h3>${escapeHTML(tool.name)}</h3>
-                        <div class="branding-tag">BY <span>AHMAD RDX</span> ${tool.addedBy ? '• ' + tool.addedBy : ''}</div>
-                        <div class="actions">
-                            <button class="launch-btn" onclick="launchTool(${tool.id})">
-                                <i class="fa-solid fa-rocket"></i> Launch
-                            </button>
-                            <button class="delete-btn" style="display: ${deleteBtnDisplay};" onclick="deleteTool(${tool.id})">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
+                    <h3>${tool.name}</h3>
+                    <div class="branding">ENGINEERED BY <span>AHMAD RDX</span></div>
+                    <div class="btn-group">
+                        <button class="launch" onclick="launchTool(${index})"><i class="fa-solid fa-rocket"></i> Launch</button>
+                        <button class="delete-btn" style="display:${userRole==='admin'?'block':'none'}" onclick="deleteTool(${index})">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        function escapeHTML(str) {
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        async function addNewTool() {
+            const name = prompt("Enter Tool Name:");
+            const code = prompt("Paste Complete HTML Code:");
+            if(!name || !code) return;
+
+            // Optimistic Update (UI pe foran dikhega)
+            allTools.push({ name, code });
+            renderUI();
+            
+            // Cloud Update
+            await updateCloud();
         }
 
-        // Initialize
-        loadLocalData();
-        console.log('🚀 Toolkit Ready');
-        console.log('Admin: ahmadrdx / ahmad123');
-        console.log('User: ahmiirdx / ahmad786');
+        async function deleteTool(index) {
+            if(confirm("Permanently delete this tool from Cloud?")) {
+                allTools.splice(index, 1);
+                renderUI();
+                await updateCloud();
+            }
+        }
+
+        async function updateCloud() {
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': MASTER_KEY,
+                        'X-Bin-Versioning': 'false' // Purani version overwrite karega taky sync fast ho
+                    },
+                    body: JSON.stringify({ tools: allTools })
+                });
+                if(res.ok) {
+                    console.log("Cloud Synced Successfully");
+                } else {
+                    alert("Sync Error: Cloud rejected the update.");
+                }
+            } catch (e) { 
+                alert("Network Error: Could not reach Cloud."); 
+            }
+        }
+
+        function launchTool(index) {
+            const win = window.open("", "_blank");
+            win.document.write(allTools[index].code);
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+        }
     </script>
 </body>
 </html>
