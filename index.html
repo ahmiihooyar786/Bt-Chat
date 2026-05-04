@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AHMAD RDX TOOLKIT | FireCloud</title>
+    <title>AHMAD RDX TOOLKIT | Cloud</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -25,26 +25,24 @@
         #login-section { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         .login-box {
             background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border);
-            padding: 40px; border-radius: 20px; width: 90%; max-width: 420px; text-align: center;
+            padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
-        .login-box h1 { font-size: 1.6rem; margin-bottom: 5px; background: linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
-        .login-box .subtitle { color: #64748b; margin-bottom: 30px; font-size: 0.85rem; }
-        .input-group { margin-bottom: 18px; text-align: left; }
+        .login-box h1 { font-size: 1.8rem; margin-bottom: 5px; background: linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+        .login-box p { color: #94a3b8; margin-bottom: 25px; font-size: 0.9rem; }
+        .input-group { margin-bottom: 20px; text-align: left; }
         .input-group input, .input-group textarea { width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border); border-radius: 10px; color: white; font-size: 1rem; outline: none; transition: 0.3s; }
         .input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2); }
-        .btn { width: 100%; padding: 12px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; border-radius: 10px; color: white; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3); }
+        .btn { width: 100%; padding: 12px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; border-radius: 10px; color: white; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3); }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4); }
         .error-msg { color: #ef4444; font-size: 0.8rem; margin-top: 8px; min-height: 20px; }
-        .success-msg { color: #10b981; font-size: 0.8rem; margin-top: 8px; }
         #app-section { display: none; }
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 50; }
         .brand h1 { font-size: 1.8rem; font-weight: 700; color: white; letter-spacing: 1px; }
         .brand h1 span { background: linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .user-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .badge { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; color: #a78bfa; }
-        .online-badge { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; }
-        .logout-btn { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 0.85rem; }
+        .user-controls { display: flex; align-items: center; gap: 15px; }
+        .badge { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; color: #a78bfa; }
+        .logout-btn { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
         .logout-btn:hover { background: #ef4444; color: white; }
         .container { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
         .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
@@ -53,7 +51,7 @@
         .thumbnail-wrapper { width: 100%; height: 160px; border-radius: 12px; overflow: hidden; position: relative; margin-bottom: 15px; background: var(--card-aura, linear-gradient(135deg, #8b5cf6, #ec4899)); padding: 2px; box-shadow: 0 0 20px var(--card-aura-glow, rgba(139, 92, 246, 0.4)); }
         .thumbnail-inner { width: 100%; height: 100%; background: #ffffff; border-radius: 10px; position: relative; overflow: hidden; }
         .thumbnail-iframe { width: 400%; height: 400%; transform: scale(0.25); transform-origin: top left; border: none; pointer-events: none; }
-        .thumbnail-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.05); z-index: 10; }
+        .thumbnail-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.1); z-index: 10; }
         .tool-info h3 { font-size: 1.2rem; color: #f8fafc; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .branding-tag { font-size: 0.7rem; color: #94a3b8; letter-spacing: 1px; margin-bottom: 15px; }
         .branding-tag span { color: var(--secondary); font-weight: 600; }
@@ -76,7 +74,7 @@
         .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid white; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
-        @media (max-width: 768px) { header { padding: 15px 20px; flex-direction: column; gap: 10px; } .thumbnail-wrapper { height: 140px; } .user-controls { justify-content: center; } }
+        @media (max-width: 768px) { header { padding: 15px 20px; flex-direction: column; gap: 10px; } .thumbnail-wrapper { height: 140px; } }
     </style>
 </head>
 <body>
@@ -84,55 +82,61 @@
     <section id="login-section">
         <div class="login-box">
             <h1>AHMAD RDX TOOLKIT</h1>
-            <p class="subtitle">☁️ Firebase Cloud Sync</p>
-            
+            <p>☁️ Firebase Cloud Sync</p>
+
             <div class="input-group">
                 <input type="text" id="username" placeholder="Username" autocomplete="off">
             </div>
             <div class="input-group">
                 <input type="password" id="password" placeholder="Password">
             </div>
-            
-            <button class="btn" onclick="handleLogin()">
-                <i class="fa-solid fa-cloud-arrow-up"></i> Connect to Cloud
-            </button>
+            <button class="btn" onclick="handleLogin()">Login to Cloud</button>
             
             <div class="error-msg" id="errorMsg"></div>
-            <div class="success-msg" id="successMsg"></div>
         </div>
     </section>
 
     <section id="app-section">
         <header>
-            <div class="brand"><h1>AHMAD <span>RDX</span> TOOLKIT</h1></div>
+            <div class="brand">
+                <h1>AHMAD <span>RDX</span> TOOLKIT</h1>
+            </div>
             <div class="user-controls">
-                <span class="badge online-badge" id="connectionStatus">🟢 Connected</span>
                 <span class="badge" id="userRoleBadge">Role</span>
-                <span class="badge" id="userNameDisplay" style="background: rgba(139, 92, 246, 0.2); color: #c4b5fd;"></span>
+                <span class="badge" id="userNameBadge" style="background: rgba(139, 92, 246, 0.2); color: #c4b5fd;"></span>
                 <button class="logout-btn" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
             </div>
         </header>
+
         <div class="container">
             <div class="tools-grid" id="toolsGrid">
                 <p style="text-align:center; grid-column: 1/-1; color:#94a3b8; margin-top:50px;">
-                    <span class="loading-spinner"></span> Loading from Firebase Cloud...
+                    <span class="loading-spinner"></span> Loading from Cloud...
                 </p>
             </div>
         </div>
-        <button class="fab-btn" id="openModalBtn" title="Add New Tool"><i class="fa-solid fa-plus"></i></button>
-        
+
+        <button class="fab-btn" id="openModalBtn"><i class="fa-solid fa-plus"></i></button>
+
         <div class="modal-overlay" id="addToolModal">
             <div class="modal-box">
-                <div class="modal-header"><h2>Add Tool to Cloud</h2><button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button></div>
-                <div class="input-group"><input type="text" id="toolName" placeholder="Tool Name"></div>
-                <div class="input-group"><textarea id="toolCode" placeholder="Paste HTML code here..."></textarea></div>
-                <button class="btn" id="saveToolBtn"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Cloud</button>
+                <div class="modal-header">
+                    <h2>Add Tool to Cloud</h2>
+                    <button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="toolName" placeholder="Tool Name">
+                </div>
+                <div class="input-group">
+                    <textarea id="toolCode" placeholder="Paste HTML code here..."></textarea>
+                </div>
+                <button class="btn" id="saveToolBtn">Save to Cloud</button>
             </div>
         </div>
     </section>
 
     <script type="module">
-        // 🔥 FIREBASE CONFIG — API KEY DOMAIN-RESTRICTED (safe)
+        // ===================== FIREBASE CONFIG =====================
         const firebaseConfig = {
             apiKey: "AIzaSyAY7r_iIEoB5Kz42jfJ5P2wE8fKrZs5Mw8",
             authDomain: "ahmad-rdx-toolkit.firebaseapp.com",
@@ -150,17 +154,16 @@
         const database = getDatabase(app);
         const toolsRef = ref(database, 'tools');
 
-        console.log('🔥 Firebase Connected!');
+        console.log('✅ Firebase Cloud Connected!');
 
-        // 🔐 NEW CREDENTIALS
-        const VALID_CREDENTIALS = {
-            admin: { username: 'ahmiirdx', password: 'ahmad786', role: 'admin', displayName: 'Ahmiir DX' },
-            user: { username: 'ahmadrdx', password: 'ahmad123', role: 'user', displayName: 'Ahmad RDX' }
+        // ===================== CREDENTIALS =====================
+        const USERS = {
+            admin: { username: 'ahmiirdx', password: 'ahmad786', role: 'admin', name: 'Ahmiir DX' },
+            user: { username: 'ahmadrdx', password: 'ahmad123', role: 'user', name: 'Ahmad RDX' }
         };
 
         let myTools = [];
-        let currentUserRole = null;
-        let currentUsername = null;
+        let currentUser = null;
 
         const auraColors = [
             { bg: 'linear-gradient(135deg, #8b5cf6, #ec4899)', glow: 'rgba(236, 72, 153, 0.4)' },
@@ -169,87 +172,100 @@
             { bg: 'linear-gradient(135deg, #10b981, #3b82f6)', glow: 'rgba(16, 185, 129, 0.4)' }
         ];
 
-        function startRealtimeSync() {
+        // ===================== REAL-TIME SYNC =====================
+        function startSync() {
             onValue(toolsRef, (snapshot) => {
                 const data = snapshot.val();
                 myTools = data ? Object.entries(data).map(([id, tool]) => ({ ...tool, firebaseId: id })) : [];
                 renderTools();
-                document.getElementById('connectionStatus').innerHTML = '🟢 Connected';
-            }, (error) => {
-                console.error('Sync error:', error);
-                document.getElementById('connectionStatus').innerHTML = '🔴 Offline';
             });
         }
 
-        async function addToolToCloud(tool) {
+        async function addTool(tool) {
             const newRef = push(toolsRef);
             await set(newRef, tool);
         }
 
-        async function deleteToolFromCloud(firebaseId) {
-            const itemRef = ref(database, `tools/${firebaseId}`);
-            await remove(itemRef);
+        async function deleteTool(firebaseId) {
+            await remove(ref(database, `tools/${firebaseId}`));
         }
 
+        // ===================== LOGIN =====================
         window.handleLogin = function() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
-            if (!username || !password) return errorMsg.textContent = '❌ Username aur password dono likho!';
+            const errorEl = document.getElementById('errorMsg');
 
-            let auth = Object.values(VALID_CREDENTIALS).find(c => c.username === username && c.password === password);
-            if (auth) {
-                currentUserRole = auth.role; currentUsername = auth.username;
+            if (!username || !password) {
+                errorEl.textContent = '❌ Username aur password dono likho!';
+                return;
+            }
+
+            const user = Object.values(USERS).find(u => u.username === username && u.password === password);
+
+            if (user) {
+                currentUser = user;
                 document.getElementById('login-section').style.display = 'none';
                 document.getElementById('app-section').style.display = 'block';
-                document.getElementById('userRoleBadge').innerText = auth.role === 'admin' ? '🛡️ Admin' : '👤 User';
-                document.getElementById('userNameDisplay').innerText = '👋 ' + auth.displayName;
-                document.getElementById('openModalBtn').style.display = auth.role === 'admin' ? 'flex' : 'none';
-                startRealtimeSync();
+                document.getElementById('userRoleBadge').innerText = user.role === 'admin' ? '🛡️ Admin' : '👤 User';
+                document.getElementById('userNameBadge').innerText = '👋 ' + user.name;
+                document.getElementById('openModalBtn').style.display = user.role === 'admin' ? 'flex' : 'none';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                errorEl.textContent = '';
+                startSync();
             } else {
-                errorMsg.textContent = '❌ Invalid credentials!';
+                errorEl.textContent = '❌ Galat username ya password!';
                 document.querySelector('.login-box').style.animation = 'shake 0.5s';
                 setTimeout(() => document.querySelector('.login-box').style.animation = '', 500);
             }
         };
 
         window.handleLogout = function() {
-            currentUserRole = null; currentUsername = null;
+            currentUser = null;
             document.getElementById('login-section').style.display = 'flex';
             document.getElementById('app-section').style.display = 'none';
         };
 
         document.addEventListener('keypress', e => {
-            if (e.key === 'Enter' && document.getElementById('login-section').style.display !== 'none') window.handleLogin();
+            if (e.key === 'Enter' && document.getElementById('login-section').style.display !== 'none') {
+                handleLogin();
+            }
         });
 
-        document.getElementById('openModalBtn').addEventListener('click', () => document.getElementById('addToolModal').classList.add('active'));
-        document.getElementById('closeModalBtn').addEventListener('click', () => document.getElementById('addToolModal').classList.remove('active'));
+        // ===================== MODAL & TOOLS =====================
+        const modal = document.getElementById('addToolModal');
+        document.getElementById('openModalBtn').addEventListener('click', () => modal.classList.add('active'));
+        document.getElementById('closeModalBtn').addEventListener('click', () => modal.classList.remove('active'));
 
         document.getElementById('saveToolBtn').addEventListener('click', async () => {
             const name = document.getElementById('toolName').value.trim();
             const code = document.getElementById('toolCode').value.trim();
-            if (!name || !code) return alert("Fill all fields!");
+            if (!name || !code) return alert('Please fill all fields!');
+
             const randomAura = auraColors[Math.floor(Math.random() * auraColors.length)];
-            await addToolToCloud({
+            await addTool({
                 name, code,
                 aura: randomAura,
-                addedBy: currentUsername,
+                addedBy: currentUser?.username,
                 addedAt: new Date().toISOString()
             });
-            document.getElementById('addToolModal').classList.remove('active');
+
+            modal.classList.remove('active');
             document.getElementById('toolName').value = '';
             document.getElementById('toolCode').value = '';
         });
 
         window.deleteTool = async function(firebaseId) {
-            if (confirm("Delete this tool from Cloud?")) await deleteToolFromCloud(firebaseId);
+            if (confirm('Delete this tool from Cloud?')) {
+                await deleteTool(firebaseId);
+            }
         };
 
         window.launchTool = function(firebaseId) {
             const tool = myTools.find(t => t.firebaseId === firebaseId);
             if (tool) {
-                const win = window.open("", "_blank");
+                const win = window.open('', '_blank');
                 win.document.open();
                 win.document.write(`<!DOCTYPE html><html><head><title>${tool.name}</title></head><body>${tool.code}</body></html>`);
                 win.document.close();
@@ -259,16 +275,19 @@
         function renderTools() {
             const grid = document.getElementById('toolsGrid');
             grid.innerHTML = '';
+
             if (myTools.length === 0) {
-                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:#94a3b8; margin-top:50px;">📦 Cloud empty. Admin add karo.</p>`;
+                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:#94a3b8; margin-top:50px;">📦 Cloud empty. Admin login karo aur tools add karo.</p>`;
                 return;
             }
+
             myTools.forEach(tool => {
                 const card = document.createElement('div');
                 card.className = 'tool-card';
                 card.style.setProperty('--card-aura', tool.aura?.bg || auraColors[0].bg);
                 card.style.setProperty('--card-aura-glow', tool.aura?.glow || auraColors[0].glow);
-                const delDisplay = currentUserRole === 'admin' ? 'block' : 'none';
+                const delDisplay = currentUser?.role === 'admin' ? 'block' : 'none';
+
                 card.innerHTML = `
                     <div class="thumbnail-wrapper"><div class="thumbnail-inner">
                         <iframe class="thumbnail-iframe" srcdoc="${escapeHTML(tool.code || '')}" sandbox="allow-scripts"></iframe>
