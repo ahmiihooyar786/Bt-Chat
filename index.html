@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AHMAD RDX TOOLKIT | Firebase Cloud</title>
+    <title>AHMAD RDX TOOLKIT | FireCloud</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -31,12 +31,10 @@
         .login-box h1 { font-size: 1.6rem; margin-bottom: 5px; background: linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
         .login-box .subtitle { color: #64748b; margin-bottom: 30px; font-size: 0.85rem; }
         .input-group { margin-bottom: 18px; text-align: left; }
-        .input-group label { display: block; color: #94a3b8; font-size: 0.8rem; margin-bottom: 5px; font-weight: 500; }
         .input-group input, .input-group textarea { width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border); border-radius: 10px; color: white; font-size: 1rem; outline: none; transition: 0.3s; }
         .input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2); }
         .btn { width: 100%; padding: 12px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; border-radius: 10px; color: white; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3); }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4); }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         .error-msg { color: #ef4444; font-size: 0.8rem; margin-top: 8px; min-height: 20px; }
         .success-msg { color: #10b981; font-size: 0.8rem; margin-top: 8px; }
         #app-section { display: none; }
@@ -86,18 +84,16 @@
     <section id="login-section">
         <div class="login-box">
             <h1>AHMAD RDX TOOLKIT</h1>
-            <p class="subtitle">☁️ Ahmad Cloud Sync</p>
+            <p class="subtitle">☁️ Firebase Cloud Sync</p>
             
             <div class="input-group">
-                <label>👤 Username</label>
                 <input type="text" id="username" placeholder="Username" autocomplete="off">
             </div>
             <div class="input-group">
-                <label>🔒 Password</label>
                 <input type="password" id="password" placeholder="Password">
             </div>
             
-            <button class="btn" id="loginBtn" onclick="handleLogin()">
+            <button class="btn" onclick="handleLogin()">
                 <i class="fa-solid fa-cloud-arrow-up"></i> Connect to Cloud
             </button>
             
@@ -136,8 +132,16 @@
     </section>
 
     <script type="module">
-        // 🔥 Secure Firebase Config – imported from external file (git-ignored)
-        import firebaseConfig from './firebase-config.js';
+        // 🔥 FIREBASE CONFIG — API KEY DOMAIN-RESTRICTED (safe)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAY7r_iIEoB5Kz42jfJ5P2wE8fKrZs5Mw8",
+            authDomain: "ahmad-rdx-toolkit.firebaseapp.com",
+            databaseURL: "https://ahmad-rdx-toolkit-default-rtdb.firebaseio.com",
+            projectId: "ahmad-rdx-toolkit",
+            storageBucket: "ahmad-rdx-toolkit.firebasestorage.app",
+            messagingSenderId: "1016906380254",
+            appId: "1:1016906380254:web:9944d39e4806fedfc7e34f"
+        };
 
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
         import { getDatabase, ref, onValue, push, remove, set } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
@@ -148,10 +152,10 @@
 
         console.log('🔥 Firebase Connected!');
 
-        // ===================== AUTH =====================
+        // 🔐 NEW CREDENTIALS
         const VALID_CREDENTIALS = {
-            admin: { username: 'ahmiirdx', password: 'ahmad786', role: 'admin', displayName: 'Ahmad RDX' },
-            user: { username: 'ahmadrdx', password: 'ahmad123', role: 'user', displayName: 'Ahmiir DX' }
+            admin: { username: 'ahmiirdx', password: 'ahmad786', role: 'admin', displayName: 'Ahmiir DX' },
+            user: { username: 'ahmadrdx', password: 'ahmad123', role: 'user', displayName: 'Ahmad RDX' }
         };
 
         let myTools = [];
@@ -165,18 +169,10 @@
             { bg: 'linear-gradient(135deg, #10b981, #3b82f6)', glow: 'rgba(16, 185, 129, 0.4)' }
         ];
 
-        // ===================== REALTIME SYNC =====================
         function startRealtimeSync() {
             onValue(toolsRef, (snapshot) => {
                 const data = snapshot.val();
-                if (data) {
-                    myTools = Object.entries(data).map(([firebaseId, tool]) => ({
-                        ...tool,
-                        firebaseId
-                    }));
-                } else {
-                    myTools = [];
-                }
+                myTools = data ? Object.entries(data).map(([id, tool]) => ({ ...tool, firebaseId: id })) : [];
                 renderTools();
                 document.getElementById('connectionStatus').innerHTML = '🟢 Connected';
             }, (error) => {
@@ -195,40 +191,20 @@
             await remove(itemRef);
         }
 
-        // ===================== LOGIN =====================
         window.handleLogin = function() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
             const errorMsg = document.getElementById('errorMsg');
+            if (!username || !password) return errorMsg.textContent = '❌ Username aur password dono likho!';
 
-            if (!username || !password) {
-                errorMsg.textContent = '❌ Username aur password dono likho!';
-                return;
-            }
-
-            let authenticated = false;
-            let userRole = null;
-            let displayName = '';
-
-            for (let cred of Object.values(VALID_CREDENTIALS)) {
-                if (cred.username === username && cred.password === password) {
-                    authenticated = true;
-                    userRole = cred.role;
-                    displayName = cred.displayName;
-                    break;
-                }
-            }
-
-            if (authenticated) {
-                currentUserRole = userRole;
-                currentUsername = username;
-
+            let auth = Object.values(VALID_CREDENTIALS).find(c => c.username === username && c.password === password);
+            if (auth) {
+                currentUserRole = auth.role; currentUsername = auth.username;
                 document.getElementById('login-section').style.display = 'none';
                 document.getElementById('app-section').style.display = 'block';
-                document.getElementById('userRoleBadge').innerText = userRole === 'admin' ? '🛡️ Admin' : '👤 User';
-                document.getElementById('userNameDisplay').innerText = '👋 ' + displayName;
-                document.getElementById('openModalBtn').style.display = userRole === 'admin' ? 'flex' : 'none';
-
+                document.getElementById('userRoleBadge').innerText = auth.role === 'admin' ? '🛡️ Admin' : '👤 User';
+                document.getElementById('userNameDisplay').innerText = '👋 ' + auth.displayName;
+                document.getElementById('openModalBtn').style.display = auth.role === 'admin' ? 'flex' : 'none';
                 startRealtimeSync();
             } else {
                 errorMsg.textContent = '❌ Invalid credentials!';
@@ -238,49 +214,36 @@
         };
 
         window.handleLogout = function() {
-            currentUserRole = null;
-            currentUsername = null;
+            currentUserRole = null; currentUsername = null;
             document.getElementById('login-section').style.display = 'flex';
             document.getElementById('app-section').style.display = 'none';
         };
 
         document.addEventListener('keypress', e => {
-            if (e.key === 'Enter' && document.getElementById('login-section').style.display !== 'none') {
-                window.handleLogin();
-            }
+            if (e.key === 'Enter' && document.getElementById('login-section').style.display !== 'none') window.handleLogin();
         });
 
-        // ===================== MODAL & TOOLS =====================
-        document.getElementById('openModalBtn').addEventListener('click', () => {
-            document.getElementById('addToolModal').classList.add('active');
-        });
-        document.getElementById('closeModalBtn').addEventListener('click', () => {
-            document.getElementById('addToolModal').classList.remove('active');
-        });
+        document.getElementById('openModalBtn').addEventListener('click', () => document.getElementById('addToolModal').classList.add('active'));
+        document.getElementById('closeModalBtn').addEventListener('click', () => document.getElementById('addToolModal').classList.remove('active'));
 
         document.getElementById('saveToolBtn').addEventListener('click', async () => {
             const name = document.getElementById('toolName').value.trim();
             const code = document.getElementById('toolCode').value.trim();
             if (!name || !code) return alert("Fill all fields!");
-
             const randomAura = auraColors[Math.floor(Math.random() * auraColors.length)];
-            const newTool = {
+            await addToolToCloud({
                 name, code,
                 aura: randomAura,
                 addedBy: currentUsername,
                 addedAt: new Date().toISOString()
-            };
-
-            await addToolToCloud(newTool);
+            });
             document.getElementById('addToolModal').classList.remove('active');
             document.getElementById('toolName').value = '';
             document.getElementById('toolCode').value = '';
         });
 
         window.deleteTool = async function(firebaseId) {
-            if (confirm("Delete this tool from Cloud?")) {
-                await deleteToolFromCloud(firebaseId);
-            }
+            if (confirm("Delete this tool from Cloud?")) await deleteToolFromCloud(firebaseId);
         };
 
         window.launchTool = function(firebaseId) {
@@ -300,22 +263,17 @@
                 grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:#94a3b8; margin-top:50px;">📦 Cloud empty. Admin add karo.</p>`;
                 return;
             }
-
             myTools.forEach(tool => {
                 const card = document.createElement('div');
                 card.className = 'tool-card';
                 card.style.setProperty('--card-aura', tool.aura?.bg || auraColors[0].bg);
                 card.style.setProperty('--card-aura-glow', tool.aura?.glow || auraColors[0].glow);
-
                 const delDisplay = currentUserRole === 'admin' ? 'block' : 'none';
-
                 card.innerHTML = `
-                    <div class="thumbnail-wrapper">
-                        <div class="thumbnail-inner">
-                            <iframe class="thumbnail-iframe" srcdoc="${escapeHTML(tool.code || '')}" sandbox="allow-scripts"></iframe>
-                            <div class="thumbnail-overlay"></div>
-                        </div>
-                    </div>
+                    <div class="thumbnail-wrapper"><div class="thumbnail-inner">
+                        <iframe class="thumbnail-iframe" srcdoc="${escapeHTML(tool.code || '')}" sandbox="allow-scripts"></iframe>
+                        <div class="thumbnail-overlay"></div>
+                    </div></div>
                     <div class="tool-info">
                         <h3>${escapeHTML(tool.name)}</h3>
                         <div class="branding-tag">BY <span>AHMAD RDX</span> ${tool.addedBy ? '• ' + tool.addedBy : ''}</div>
@@ -331,6 +289,6 @@
         function escapeHTML(str) {
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
-            </script>
+    </script>
 </body>
 </html>
